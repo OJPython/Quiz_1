@@ -1,0 +1,1942 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Electric charge — readings and quiz</title>
+<style>
+:root{
+  --bg:#faf9f5; --surface:#ffffff; --surface-alt:#f3f1ec;
+  --text:#1f1e1c; --text-2:#5f5e5a; --text-3:#8a8880;
+  --line:#e2dfd7; --line-2:#cfcbc0;
+  --accent:#185fa5; --accent-bg:#e6f1fb; --accent-line:#85b7eb;
+  --ok:#3b6d11; --ok-bg:#eaf3de; --ok-line:#97c459;
+  --no:#a32d2d; --no-bg:#fcebeb; --no-line:#f09595;
+  --warn:#854f0b; --warn-bg:#faeeda;
+  --pos-bg:#faece7; --pos-line:#d85a30; --pos-tx:#712b13;
+  --neg-bg:#e6f1fb; --neg-line:#378add; --neg-tx:#0c447c;
+  --neu-bg:#f1efe8; --neu-line:#888780; --neu-tx:#444441;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#1a1915; --surface:#242320; --surface-alt:#2e2d28;
+    --text:#edebe4; --text-2:#b4b2a9; --text-3:#8a8880;
+    --line:#3a3833; --line-2:#4a4842;
+    --accent:#85b7eb; --accent-bg:#0c3254; --accent-line:#185fa5;
+    --ok:#97c459; --ok-bg:#1f3310; --ok-line:#3b6d11;
+    --no:#f09595; --no-bg:#3d1515; --no-line:#a32d2d;
+    --warn:#efc27a; --warn-bg:#3a2a10;
+    --pos-bg:#712b13; --pos-line:#f0997b; --pos-tx:#f5c4b3;
+    --neg-bg:#0c447c; --neg-line:#85b7eb; --neg-tx:#b5d4f4;
+    --neu-bg:#444441; --neu-line:#b4b2a9; --neu-tx:#d3d1c7;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:1.65;-webkit-text-size-adjust:100%}
+.wrap{max-width:720px;margin:0 auto;padding:22px 16px 80px}
+h1{font-size:21px;font-weight:600;margin:0 0 3px}
+.sub{font-size:13.5px;color:var(--text-2);margin:0}
+nav{display:flex;gap:6px;margin:16px 0 14px;border-bottom:1px solid var(--line)}
+nav button{font:inherit;font-size:14.5px;padding:9px 16px;border:none;border-bottom:2px solid transparent;
+  background:none;color:var(--text-2);cursor:pointer;border-radius:0}
+nav button:hover{color:var(--text);background:none}
+nav button.on{color:var(--accent);border-bottom-color:var(--accent)}
+.seg{display:flex;gap:6px;margin:0 0 20px;flex-wrap:wrap}
+.seg button{font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid var(--line-2);
+  background:var(--surface);color:var(--text-2)}
+.seg button.on{background:var(--accent-bg);border-color:var(--accent-line);color:var(--accent)}
+.bar{display:flex;align-items:center;gap:12px;margin:0 0 18px;flex-wrap:wrap}
+.track{flex:1;min-width:130px;height:5px;background:var(--surface-alt);border-radius:3px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--accent);border-radius:3px;transition:width .3s}
+.count{font-size:13px;color:var(--text-2);white-space:nowrap}
+.chip{font-size:12px;padding:3px 10px;border-radius:999px;background:var(--ok-bg);color:var(--ok);white-space:nowrap}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:16px}
+.card h2{font-size:17px;font-weight:600;margin:0 0 4px}
+.card h3{font-size:15px;font-weight:600;margin:18px 0 6px}
+.card p{margin:0 0 11px;font-size:15px}
+.card p:last-child{margin-bottom:0}
+.lede{color:var(--text-2);font-size:13.5px;margin:0 0 14px !important}
+.key{background:var(--accent-bg);color:var(--accent);border-radius:8px;padding:11px 14px;font-size:14.5px;margin:12px 0}
+.meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{font-size:11.5px;padding:3px 9px;border-radius:6px;background:var(--accent-bg);color:var(--accent)}
+.src{font-size:11.5px;color:var(--text-3)}
+.q{font-size:15.5px;margin:0 0 14px}
+.opts{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border:1px solid var(--line);
+  border-radius:8px;cursor:pointer;font-size:14.5px;background:var(--surface)}
+.opt:hover{border-color:var(--line-2)}
+.opt input{margin:4px 0 0;flex:none;accent-color:var(--accent)}
+.opt.ok{border-color:var(--ok-line);background:var(--ok-bg);color:var(--ok)}
+.opt.no{border-color:var(--no-line);background:var(--no-bg);color:var(--no)}
+.opt.lock{cursor:default}
+.mark{margin-left:auto;font-size:11.5px;flex:none;padding-left:8px}
+.numrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+input[type=text],textarea{font:inherit;font-size:15px;color:var(--text);background:var(--surface);
+  border:1px solid var(--line-2);border-radius:8px;padding:9px 11px;width:100%}
+input[type=text]{max-width:200px}
+textarea{min-height:120px;resize:vertical;line-height:1.6}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.unit{font-size:14.5px;color:var(--text-2)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button{font:inherit;font-size:13.5px;padding:8px 14px;border-radius:8px;border:1px solid var(--line-2);
+  background:var(--surface);color:var(--text);cursor:pointer}
+button:hover{background:var(--surface-alt)}
+button.main{background:var(--accent);border-color:var(--accent);color:#fff}
+button.main:hover{opacity:.9;background:var(--accent)}
+.err{font-size:13px;color:var(--no);margin:8px 0 0}
+.fb{border-left:3px solid var(--accent-line);padding:2px 0 2px 14px;margin-top:14px}
+.fb h4{margin:0 0 7px;font-size:14.5px;font-weight:600}
+.fb h4.ok{color:var(--ok)} .fb h4.no{color:var(--no)}
+.fb p{margin:0 0 9px;font-size:14px;color:var(--text-2)}
+.fb p:last-child{margin-bottom:0}
+.note{font-size:13px;color:var(--text-3);border-top:1px solid var(--line);padding-top:9px;margin-top:10px}
+.hint{background:var(--warn-bg);color:var(--warn);font-size:13.5px;padding:10px 13px;border-radius:8px;margin:10px 0}
+.model{background:var(--surface-alt);border-radius:8px;padding:13px 15px;margin-top:12px}
+.model h4{margin:0 0 8px;font-size:14px;font-weight:600}
+.model p{margin:0 0 9px;font-size:14px;color:var(--text-2)}
+.check{display:flex;gap:9px;align-items:flex-start;font-size:14px;margin:7px 0;cursor:pointer}
+.check input{margin:4px 0 0;flex:none;accent-color:var(--ok)}
+.selfscore{font-size:13.5px;color:var(--text-2);margin-top:12px;padding-top:10px;border-top:1px solid var(--line)}
+.done{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:22px;text-align:center}
+.done h2{margin:0 0 6px;font-size:19px;font-weight:600}
+.big{font-size:34px;font-weight:600;margin:12px 0 4px}
+.tbl{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px;text-align:left}
+.tbl th{font-weight:600;color:var(--text-2);font-size:12.5px;padding:7px 8px;border-bottom:1px solid var(--line)}
+.tbl td{padding:7px 8px;border-bottom:1px solid var(--line);color:var(--text-2)}
+.foot{margin-top:28px;font-size:12.5px;color:var(--text-3);text-align:center}
+svg{display:block;max-width:100%;height:auto;margin:14px auto}
+.fig{background:var(--surface-alt);border-radius:8px;padding:10px;margin:12px 0}
+.fig svg{margin:0 auto}
+.work{border-left:3px solid var(--ok-line);border-radius:0;padding:4px 0 4px 14px;margin:14px 0 16px}
+.work .wh{margin:0 0 6px;font-size:12px;color:var(--text-3)}
+.work p{margin:0 0 4px;font-size:14px;color:var(--text-2)}
+.work p:last-child{margin-bottom:0}
+.work b{color:var(--text)}
+.wn{color:var(--ok);font-weight:600;margin-right:4px}
+.sp{fill:var(--pos-bg);stroke:var(--pos-line);stroke-width:1}
+.sn{fill:var(--neg-bg);stroke:var(--neg-line);stroke-width:1}
+.su{fill:var(--neu-bg);stroke:var(--neu-line);stroke-width:1}
+.tp{fill:var(--pos-tx)} .tn{fill:var(--neg-tx)} .tu{fill:var(--neu-tx)}
+.tt{fill:var(--text)} .t2{fill:var(--text-2)}
+.ln{stroke:var(--text-2);fill:none}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Electric charge</h1>
+<p class="sub">Three parts of readings and quizzes &middot; PHYS1025</p>
+
+<nav>
+  <button id="tabR" class="on">Readings</button>
+  <button id="tabQ">Quiz</button>
+</nav>
+
+<div class="seg">
+  <button id="p1" class="on">Part 1 &middot; Charge basics</button>
+  <button id="p2">Part 2 &middot; Calculating fields</button>
+  <button id="p3">Part 3 &middot; Forces, plates &amp; Gauss</button>
+  <button id="p4">Part 4 &middot; Capacitors</button>
+</div>
+
+<section id="r1">
+
+<div class="card">
+  <h2>1. What's inside everything</h2>
+  <p class="lede">Read this first. Everything else depends on it.</p>
+  <p>Everything around you &mdash; the desk, the air, your hand &mdash; is made of tiny building blocks called <strong>atoms</strong>.</p>
+  <p>Each atom has a heavy centre called the <strong>nucleus</strong>, packed with particles called <strong>protons</strong>. Protons carry a <strong>positive</strong> charge, and they are stuck. They never leave.</p>
+  <p>Around the outside are much lighter particles called <strong>electrons</strong>. They carry a <strong>negative</strong> charge, and some of them are loose enough to move away.</p>
+  <p>Normally an atom has the same number of each, so the positive and negative cancel out. We call that <strong>neutral</strong>.</p>
+<div class="fig">
+<svg viewBox="0 0 620 400" role="img" aria-label="An atom with a positive nucleus at the centre and negative electrons outside it, and three objects showing neutral, positive and negative states.">
+<circle cx="160" cy="126" r="84" class="ln" stroke-width="0.75" stroke-dasharray="5 4" opacity=".45"/>
+<circle cx="160" cy="126" r="33" class="sp"/>
+<text x="160" y="122" font-size="12" text-anchor="middle" class="tp">+ + +</text>
+<text x="160" y="138" font-size="12" text-anchor="middle" class="tp">+ +</text>
+<circle cx="244" cy="126" r="12" class="sn"/><text x="244" y="131" font-size="12" text-anchor="middle" class="tn">&minus;</text>
+<circle cx="160" cy="42" r="12" class="sn"/><text x="160" y="47" font-size="12" text-anchor="middle" class="tn">&minus;</text>
+<circle cx="101" cy="185" r="12" class="sn"/><text x="101" y="190" font-size="12" text-anchor="middle" class="tn">&minus;</text>
+<line x1="193" y1="124" x2="288" y2="100" class="ln" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="296" y="96" font-size="13" font-weight="500" class="tt">nucleus: protons, positive</text>
+<text x="296" y="115" font-size="12" class="t2">heavy, in the middle, never move</text>
+<line x1="256" y1="130" x2="288" y2="162" class="ln" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="296" y="160" font-size="13" font-weight="500" class="tt">electrons, negative</text>
+<text x="296" y="179" font-size="12" class="t2">light, outside, some can move</text>
+<text x="20" y="256" font-size="13" font-weight="500" class="tt">Only electrons ever move. That gives three possibilities:</text>
+<circle cx="106" cy="318" r="44" class="su"/>
+<text x="106" y="312" font-size="12" text-anchor="middle" class="tu">5 protons</text>
+<text x="106" y="330" font-size="12" text-anchor="middle" class="tu">5 electrons</text>
+<text x="106" y="386" font-size="13" font-weight="500" text-anchor="middle" class="tt">neutral</text>
+<circle cx="310" cy="318" r="44" class="sp"/>
+<text x="310" y="312" font-size="12" text-anchor="middle" class="tp">5 protons</text>
+<text x="310" y="330" font-size="12" text-anchor="middle" class="tp">3 electrons</text>
+<text x="310" y="386" font-size="13" font-weight="500" text-anchor="middle" class="tt">positive &mdash; lost 2</text>
+<circle cx="514" cy="318" r="44" class="sn"/>
+<text x="514" y="312" font-size="12" text-anchor="middle" class="tn">5 protons</text>
+<text x="514" y="330" font-size="12" text-anchor="middle" class="tn">7 electrons</text>
+<text x="514" y="386" font-size="13" font-weight="500" text-anchor="middle" class="tt">negative &mdash; gained 2</text>
+</svg></div>
+  <div class="key">When something becomes charged, only one thing has happened: <strong>electrons moved.</strong> Nothing was created and nothing was destroyed.</div>
+  <p>Notice what <em>neutral</em> does not mean. A neutral object is not empty of charge. It is absolutely packed with charge &mdash; there is just exactly as much positive as negative, so the two cancel.</p>
+</div>
+
+<div class="card">
+  <h2>2. Charges push and pull</h2>
+  <p>Charges do not touch each other, but they still feel each other across empty space.</p>
+  <p>The rule is short: <strong>the same signs push apart, opposite signs pull together.</strong></p>
+<div class="fig">
+<svg viewBox="0 0 620 230" role="img" aria-label="Two positive charges repel, two negative charges repel, and a positive and a negative charge attract.">
+<circle cx="70" cy="70" r="26" class="sp"/><text x="70" y="76" font-size="15" text-anchor="middle" class="tp">+</text>
+<circle cx="190" cy="70" r="26" class="sp"/><text x="190" y="76" font-size="15" text-anchor="middle" class="tp">+</text>
+<line x1="98" y1="70" x2="36" y2="70" class="ln" stroke-width="1.5"/><path d="M36 70L44 65M36 70L44 75" class="ln" stroke-width="1.5"/>
+<line x1="162" y1="70" x2="224" y2="70" class="ln" stroke-width="1.5"/><path d="M224 70L216 65M224 70L216 75" class="ln" stroke-width="1.5"/>
+<text x="130" y="128" font-size="13" text-anchor="middle" class="tt">push apart</text>
+<circle cx="380" cy="70" r="26" class="sn"/><text x="380" y="76" font-size="15" text-anchor="middle" class="tn">&minus;</text>
+<circle cx="500" cy="70" r="26" class="sn"/><text x="500" y="76" font-size="15" text-anchor="middle" class="tn">&minus;</text>
+<line x1="408" y1="70" x2="346" y2="70" class="ln" stroke-width="1.5"/><path d="M346 70L354 65M346 70L354 75" class="ln" stroke-width="1.5"/>
+<line x1="472" y1="70" x2="534" y2="70" class="ln" stroke-width="1.5"/><path d="M534 70L526 65M534 70L526 75" class="ln" stroke-width="1.5"/>
+<text x="440" y="128" font-size="13" text-anchor="middle" class="tt">push apart</text>
+<circle cx="230" cy="178" r="26" class="sp"/><text x="230" y="184" font-size="15" text-anchor="middle" class="tp">+</text>
+<circle cx="350" cy="178" r="26" class="sn"/><text x="350" y="184" font-size="15" text-anchor="middle" class="tn">&minus;</text>
+<line x1="258" y1="178" x2="312" y2="178" class="ln" stroke-width="1.5"/><path d="M312 178L304 173M312 178L304 183" class="ln" stroke-width="1.5"/>
+<line x1="322" y1="178" x2="268" y2="178" class="ln" stroke-width="1.5"/>
+<text x="400" y="184" font-size="13" class="tt">pull together</text>
+</svg></div>
+  <div class="key">Like charges repel. Opposite charges attract.</div>
+  <p>This is why a positively charged rod pulls electrons out of a neutral object when you touch them together &mdash; the positive rod is attracting the negative electrons.</p>
+</div>
+
+<div class="card">
+  <h2>3. Numbers in physics</h2>
+  <p class="lede">The part that costs the most marks. Worth twenty minutes.</p>
+  <p>Physics uses very big and very small numbers, so we write them in a short form.</p>
+  <p>10<sup>&minus;9</sup> simply means <em>divide by a thousand million</em>. Rather than write that out every time, we put a letter in front of the unit.</p>
+  <p>So <strong>12 nC means 12 &times; 10<sup>&minus;9</sup> C</strong>. The letter is doing all the work.</p>
+<div class="fig">
+<svg viewBox="0 0 620 380" role="img" aria-label="A scale showing nano, micro and milli prefixes with their powers of ten, and converting a distance before squaring it versus forgetting to.">
+<text x="20" y="32" font-size="13" font-weight="500" class="tt">The letter in front of the unit</text>
+<line x1="70" y1="118" x2="574" y2="118" class="ln" stroke-width="1" opacity=".6"/>
+<g class="ln" stroke-width="1.25"><path d="M106 118L106 128"/><path d="M262 118L262 128"/><path d="M418 118L418 128"/><path d="M550 118L550 128"/></g>
+<circle cx="106" cy="118" r="7" class="sn"/><circle cx="262" cy="118" r="7" class="sn"/>
+<circle cx="418" cy="118" r="7" class="sn"/><circle cx="550" cy="118" r="7" class="su"/>
+<text x="106" y="94" font-size="13" font-weight="500" text-anchor="middle" class="tt">nano (n)</text>
+<text x="262" y="94" font-size="13" font-weight="500" text-anchor="middle" class="tt">micro (&micro;)</text>
+<text x="418" y="94" font-size="13" font-weight="500" text-anchor="middle" class="tt">milli (m)</text>
+<text x="550" y="94" font-size="13" font-weight="500" text-anchor="middle" class="tt">the unit</text>
+<text x="106" y="152" font-size="12" text-anchor="middle" class="t2">&times; 10⁻⁹</text>
+<text x="262" y="152" font-size="12" text-anchor="middle" class="t2">&times; 10⁻⁶</text>
+<text x="418" y="152" font-size="12" text-anchor="middle" class="t2">&times; 10⁻³</text>
+<text x="550" y="152" font-size="12" text-anchor="middle" class="t2">&times; 1</text>
+<text x="106" y="176" font-size="12" text-anchor="middle" class="t2">12 nC</text>
+<text x="262" y="176" font-size="12" text-anchor="middle" class="t2">5.8 &micro;C</text>
+<text x="418" y="176" font-size="12" text-anchor="middle" class="t2">0.15 mm</text>
+<text x="550" y="176" font-size="12" text-anchor="middle" class="t2">0.18 m</text>
+<text x="20" y="238" font-size="13" font-weight="500" class="tt">Now watch what squaring does</text>
+<rect x="20" y="262" width="278" height="94" rx="8" class="su"/>
+<text x="159" y="290" font-size="13" font-weight="500" text-anchor="middle" class="tu">convert first</text>
+<text x="159" y="314" font-size="12" text-anchor="middle" class="tu">3 cm &rarr; 0.03 m</text>
+<text x="159" y="336" font-size="12" text-anchor="middle" class="tu">(0.03)² = 0.0009 m²</text>
+<rect x="322" y="262" width="278" height="94" rx="8" class="sp"/>
+<text x="461" y="290" font-size="13" font-weight="500" text-anchor="middle" class="tp">forget to convert</text>
+<text x="461" y="314" font-size="12" text-anchor="middle" class="tp">3 cm &rarr; (3)² = 9</text>
+<text x="461" y="336" font-size="12" text-anchor="middle" class="tp">10 000 times too big</text>
+</svg></div>
+  <div class="key">Change everything into <strong>metres and coulombs before</strong> you put any numbers into a formula. Not after. Not halfway.</div>
+</div>
+
+<div class="card">
+  <h2>4. The three ways to charge something</h2>
+  <p>All three do the same thing &mdash; move electrons. They differ only in how.</p>
+  <h3>By rubbing</h3>
+  <p>Rub two materials together and electrons are scraped from one onto the other. One ends up short of electrons (positive), the other ends up with extra (negative).</p>
+  <h3>By conduction &mdash; they touch</h3>
+  <p>A charged object touches a neutral one. Electrons move across the contact until the charge is shared. Both objects end up with <strong>the same sign</strong>.</p>
+<div class="fig">
+<svg viewBox="0 0 620 160" role="img" aria-label="A positively charged rod touches a neutral rod; electrons cross over and afterwards both rods are positive.">
+<rect x="20" y="20" width="150" height="32" rx="7" class="sp"/>
+<text x="95" y="41" font-size="13" text-anchor="middle" class="tp">+ + + +</text>
+<rect x="186" y="20" width="190" height="32" rx="7" class="su"/>
+<text x="281" y="41" font-size="12" text-anchor="middle" class="tu">neutral</text>
+<line x1="184" y1="74" x2="120" y2="74" class="ln" stroke-width="1.5"/><path d="M120 74L128 69M120 74L128 79" class="ln" stroke-width="1.5"/>
+<text x="196" y="79" font-size="12" class="t2">electrons cross over to the positive rod</text>
+<rect x="20" y="98" width="150" height="32" rx="7" class="sp"/>
+<text x="95" y="119" font-size="13" text-anchor="middle" class="tp">+ +</text>
+<rect x="186" y="98" width="190" height="32" rx="7" class="sp"/>
+<text x="281" y="119" font-size="13" text-anchor="middle" class="tp">+ + +</text>
+<text x="396" y="119" font-size="13" font-weight="500" class="tt">both positive</text>
+</svg></div>
+  <h3>By induction &mdash; no touching</h3>
+  <p>Hold a charged object close without touching. Electrons inside the neutral object shift, so one end goes negative and the other positive. The object as a whole is <strong>still neutral</strong> &mdash; nothing has entered or left it.</p>
+<div class="fig">
+<svg viewBox="0 0 620 160" role="img" aria-label="A charged rod held near a neutral rod separates its charge; cutting it gives two oppositely charged pieces.">
+<rect x="20" y="20" width="120" height="32" rx="7" class="sp"/>
+<text x="80" y="41" font-size="13" text-anchor="middle" class="tp">+ + +</text>
+<rect x="176" y="20" width="200" height="32" rx="7" class="su"/>
+<text x="206" y="41" font-size="13" class="tu">&minus; &minus;</text>
+<text x="334" y="41" font-size="13" class="tu">+ +</text>
+<text x="396" y="41" font-size="13" font-weight="500" class="tt">net charge still zero</text>
+<rect x="20" y="98" width="120" height="32" rx="7" class="sp"/>
+<text x="80" y="119" font-size="13" text-anchor="middle" class="tp">+ + +</text>
+<rect x="176" y="98" width="92" height="32" rx="7" class="sn"/>
+<text x="222" y="119" font-size="13" text-anchor="middle" class="tn">&minus; &minus;</text>
+<rect x="284" y="98" width="92" height="32" rx="7" class="sp"/>
+<text x="330" y="119" font-size="13" text-anchor="middle" class="tp">+ +</text>
+<text x="396" y="119" font-size="13" font-weight="500" class="tt">cut it: two charged pieces</text>
+</svg></div>
+  <div class="key">Charged by rubbing or induction &rarr; the two objects end up with <strong>opposite</strong> signs. Charged by conduction &rarr; they end up with the <strong>same</strong> sign.</div>
+</div>
+
+<div class="card">
+  <h2>Ready?</h2>
+  <p>Part 1 of the quiz covers these four readings and then the exam question itself.</p>
+  <div class="btns"><button class="main" id="goQ1">Start part 1 quiz</button></div>
+</div>
+
+</section>
+
+<section id="r2" class="hide">
+
+<div class="card">
+  <h2>5. One charge, one arrow</h2>
+  <p class="lede">The building block. Everything else is this, repeated.</p>
+  <p>A single charge fills the space around it with an electric field. At any point, the field is an <strong>arrow</strong> &mdash; it has a size and a direction.</p>
+  <p>The size comes from one formula:</p>
+  <div class="key">E = kQ / r<sup>2</sup> &nbsp;&nbsp;with k = 9.0 &times; 10<sup>9</sup></div>
+  <p>Use the <strong>size</strong> of the charge here. Ignore the minus sign on a negative charge &mdash; it does a different job.</p>
+  <p>The sign decides the <strong>direction</strong> instead:</p>
+<div class="fig">
+<svg viewBox="0 0 620 200" role="img" aria-label="Field arrows point away from a positive charge and toward a negative charge.">
+<circle cx="150" cy="100" r="28" class="sp"/><text x="150" y="107" font-size="16" text-anchor="middle" class="tp">+</text>
+<g class="ln" stroke-width="1.5">
+<path d="M150 66L150 30"/><path d="M150 30L145 39M150 30L155 39"/>
+<path d="M150 134L150 170"/><path d="M150 170L145 161M150 170L155 161"/>
+<path d="M184 100L220 100"/><path d="M220 100L211 95M220 100L211 105"/>
+<path d="M116 100L80 100"/><path d="M80 100L89 95M80 100L89 105"/>
+</g>
+<text x="150" y="192" font-size="13" font-weight="500" text-anchor="middle" class="tt">away from positive</text>
+<circle cx="450" cy="100" r="28" class="sn"/><text x="450" y="107" font-size="16" text-anchor="middle" class="tn">&minus;</text>
+<g class="ln" stroke-width="1.5">
+<path d="M450 30L450 66"/><path d="M450 66L445 57M450 66L455 57"/>
+<path d="M450 170L450 134"/><path d="M450 134L445 143M450 134L455 143"/>
+<path d="M520 100L484 100"/><path d="M484 100L493 95M484 100L493 105"/>
+<path d="M380 100L416 100"/><path d="M416 100L407 95M416 100L407 105"/>
+</g>
+<text x="450" y="192" font-size="13" font-weight="500" text-anchor="middle" class="tt">toward negative</text>
+</svg></div>
+  <p><strong>A worked number.</strong> What is the field 2.0 cm from a charge of +3.0 nC?</p>
+  <p>Convert first: r = 0.020 m, so r<sup>2</sup> = 4.0 &times; 10<sup>&minus;4</sup> m<sup>2</sup>, and Q = 3.0 &times; 10<sup>&minus;9</sup> C.</p>
+  <p>E = (9.0 &times; 10<sup>9</sup>)(3.0 &times; 10<sup>&minus;9</sup>) / (4.0 &times; 10<sup>&minus;4</sup>) = <strong>6.8 &times; 10<sup>4</sup> N/C</strong>, pointing away from the charge.</p>
+</div>
+
+<div class="card">
+  <h2>6. Two charges on a line</h2>
+  <p>With two charges you work out each field separately, then combine them. On a straight line that is easy &mdash; the two arrows either point the same way or opposite ways.</p>
+  <p>Here is the part that catches people out:</p>
+<div class="fig">
+<svg viewBox="0 0 620 250" role="img" aria-label="Between a positive and a negative charge the two fields point the same way and add; between two positive charges they point opposite ways and subtract.">
+<text x="20" y="28" font-size="13" font-weight="500" class="tt">opposite charges &mdash; the fields ADD in the gap</text>
+<line x1="60" y1="78" x2="340" y2="78" class="ln" stroke-width="0.75" opacity=".5"/>
+<circle cx="60" cy="78" r="20" class="sp"/><text x="60" y="84" font-size="14" text-anchor="middle" class="tp">+</text>
+<circle cx="340" cy="78" r="20" class="sn"/><text x="340" y="84" font-size="14" text-anchor="middle" class="tn">&minus;</text>
+<g stroke="var(--pos-line)" stroke-width="2.5" fill="none">
+<path d="M150 62L212 62"/><path d="M212 62L203 57M212 62L203 67"/>
+<path d="M150 94L228 94"/><path d="M228 94L219 89M228 94L219 99"/>
+</g>
+<text x="366" y="70" font-size="12" class="t2">away from +</text>
+<text x="366" y="100" font-size="12" class="t2">toward &minus;</text>
+<text x="366" y="88" font-size="12" class="t2">same way</text>
+<text x="20" y="162" font-size="13" font-weight="500" class="tt">like charges &mdash; the fields SUBTRACT in the gap</text>
+<line x1="60" y1="208" x2="340" y2="208" class="ln" stroke-width="0.75" opacity=".5"/>
+<circle cx="60" cy="208" r="20" class="sp"/><text x="60" y="214" font-size="14" text-anchor="middle" class="tp">+</text>
+<circle cx="340" cy="208" r="20" class="sp"/><text x="340" y="214" font-size="14" text-anchor="middle" class="tp">+</text>
+<g stroke="var(--pos-line)" stroke-width="2.5" fill="none">
+<path d="M150 192L212 192"/><path d="M212 192L203 187M212 192L203 197"/>
+<path d="M250 224L188 224"/><path d="M188 224L197 219M188 224L197 229"/>
+</g>
+<text x="366" y="200" font-size="12" class="t2">away from each one</text>
+<text x="366" y="222" font-size="12" class="t2">opposite ways</text>
+</svg></div>
+  <div class="key">Opposite charges make the fields <strong>add</strong> between them. Like charges make them <strong>subtract</strong>. It feels backwards, so check it on the picture every time.</div>
+  <p>The reason is simple once you see it. Between a + and a &minus;, "away from the positive" and "toward the negative" point the same way. Between two positives, each field points away from its own charge &mdash; so they fight.</p>
+  <h3>Where the field is zero</h3>
+  <p>Between two <em>like</em> charges there is a point where the two arrows are exactly equal and cancel. To find it, set the two sizes equal and solve:</p>
+  <div class="key">kQ<sub>1</sub> / x<sup>2</sup> = kQ<sub>2</sub> / (d &minus; x)<sup>2</sup></div>
+  <p>Cancel the k, take the square root of both sides straight away, and you avoid a messy quadratic. The point always sits <strong>closer to the smaller charge</strong> &mdash; a useful check.</p>
+</div>
+
+<div class="card">
+  <h2>7. Arrows at an angle</h2>
+  <p>When the charges are not in a straight line, the arrows point at angles and you cannot just add or subtract the numbers.</p>
+  <p>The trick is to replace each slanted arrow with two arrows &mdash; one <strong>across</strong> and one <strong>up</strong> &mdash; that together take you to the same place.</p>
+<div class="fig">
+<svg viewBox="0 0 620 330" role="img" aria-label="A slanted arrow replaced by an across part and an up part; at forty-five degrees the two parts are equal.">
+<text x="140" y="34" font-size="13" font-weight="500" text-anchor="middle" class="tt">one slanted arrow</text>
+<text x="450" y="34" font-size="13" font-weight="500" text-anchor="middle" class="tt">same thing, in two steps</text>
+<line x1="70" y1="240" x2="206" y2="104" stroke="var(--pos-line)" stroke-width="3"/>
+<path d="M206 104L196 110M206 104L200 114" stroke="var(--pos-line)" stroke-width="3" fill="none"/>
+<text x="128" y="156" font-size="14" font-weight="500" class="tt">E</text>
+<path d="M120 240A50 50 0 0 0 105 205" fill="none" stroke="var(--neg-line)" stroke-width="1.5"/>
+<text x="130" y="218" font-size="12" class="t2">45°</text>
+<line x1="70" y1="240" x2="220" y2="240" class="ln" stroke-width="0.75" stroke-dasharray="4 4" opacity=".5"/>
+<line x1="360" y1="240" x2="486" y2="240" stroke="var(--neg-line)" stroke-width="3"/>
+<path d="M486 240L477 235M486 240L477 245" stroke="var(--neg-line)" stroke-width="3" fill="none"/>
+<line x1="488" y1="240" x2="488" y2="114" stroke="var(--neg-line)" stroke-width="3"/>
+<path d="M488 114L483 123M488 114L493 123" stroke="var(--neg-line)" stroke-width="3" fill="none"/>
+<line x1="360" y1="240" x2="486" y2="116" stroke="var(--pos-line)" stroke-width="2" stroke-dasharray="6 5" opacity=".6" fill="none"/>
+<text x="424" y="266" font-size="13" text-anchor="middle" class="tt">across</text>
+<text x="500" y="180" font-size="13" class="tt">up</text>
+<text x="310" y="306" font-size="12" text-anchor="middle" class="t2">At 45° the two parts are equal &mdash; each is E ÷ √2, or 0.71 E.</text>
+</svg></div>
+  <p>Then the whole problem becomes two easy sums:</p>
+  <div class="key">Add up all the <strong>across</strong> parts. Add up all the <strong>up</strong> parts. Those two answers are your components.</div>
+  <p>Very often one of the two sums comes out as <strong>zero</strong>, because the arrangement is symmetric and the parts cancel in pairs. Spotting that saves you most of the work &mdash; and if a question is worth fewer marks than its twin, that is usually the one that cancels.</p>
+  <h3>Which part is which</h3>
+  <p>Measure the angle from a line you choose, then stick to it. If the angle is measured <strong>from the vertical</strong>, the up part is E&nbsp;cos&nbsp;&theta; and the across part is E&nbsp;sin&nbsp;&theta;. Mark the angle on your own diagram before choosing &mdash; the part next to the angle always takes the cosine.</p>
+</div>
+
+<div class="card">
+  <h2>8. Getting the distance right</h2>
+  <p class="lede">Half the marks lost in these questions are lost here, not in the physics.</p>
+  <p>The formula needs r<sup>2</sup>, and r is the distance from the <em>charge</em> to the <em>point you care about</em>. In shapes, that distance is rarely the number printed on the diagram.</p>
+<div class="fig">
+<svg viewBox="0 0 620 260" role="img" aria-label="In a square of side a the corner to centre distance is a over root two; in an equilateral triangle of side a every corner is a distance a from every other corner.">
+<rect x="60" y="50" width="160" height="160" class="su"/>
+<line x1="60" y1="50" x2="220" y2="210" class="ln" stroke-width="0.75" stroke-dasharray="4 4" opacity=".5"/>
+<circle cx="140" cy="130" r="4" class="tt"/>
+<line x1="60" y1="50" x2="140" y2="130" stroke="var(--pos-line)" stroke-width="2.5"/>
+<text x="86" y="86" font-size="13" font-weight="500" class="tp">a/√2</text>
+<text x="140" y="238" font-size="12" text-anchor="middle" class="t2">side a &rarr; corner to centre is a/√2</text>
+<text x="140" y="38" font-size="13" font-weight="500" text-anchor="middle" class="tt">square</text>
+<path d="M400 60L320 200L480 200Z" class="su"/>
+<circle cx="400" cy="60" r="11" class="sp"/><text x="400" y="65" font-size="11" text-anchor="middle" class="tp">+</text>
+<circle cx="320" cy="200" r="11" class="sp"/><text x="320" y="205" font-size="11" text-anchor="middle" class="tp">+</text>
+<circle cx="480" cy="200" r="11" class="sp"/><text x="480" y="205" font-size="11" text-anchor="middle" class="tp">+</text>
+<text x="344" y="134" font-size="13" font-weight="500" class="tp">a</text>
+<text x="448" y="134" font-size="13" font-weight="500" class="tp">a</text>
+<text x="400" y="222" font-size="13" font-weight="500" text-anchor="middle" class="tp">a</text>
+<text x="400" y="246" font-size="12" text-anchor="middle" class="t2">every corner is a from every other</text>
+<text x="400" y="38" font-size="13" font-weight="500" text-anchor="middle" class="tt">equilateral triangle</text>
+</svg></div>
+  <p>For a <strong>square of side a</strong>, the diagonal is a√2, so from a corner to the centre is half of that: <strong>a/√2</strong>. For a = 10 cm that is 0.0707 m, and r<sup>2</sup> = 5.0 &times; 10<sup>&minus;3</sup> m<sup>2</sup>.</p>
+  <p>For an <strong>equilateral triangle of side a</strong>, every corner is a distance a from every other corner. No square roots needed.</p>
+  <div class="key">Find r, convert it to metres, <strong>then square it</strong>. Write r<sup>2</sup> down as its own line of working before you touch the field formula.</div>
+</div>
+
+<div class="card">
+  <h2>Ready?</h2>
+  <p>Part 2 of the quiz walks you through four real exam problems, one step at a time. You never face a whole problem at once.</p>
+  <div class="btns"><button class="main" id="goQ2">Start part 2 quiz</button></div>
+</div>
+
+</section>
+
+<section id="r3" class="hide">
+
+<div class="card">
+  <h2>9. The field between two plates</h2>
+  <p class="lede">A completely different kind of field from the ones in part 2 &mdash; and a much easier one.</p>
+  <p>Take two flat metal plates, face to face, and connect them to a battery. One goes positive, the other negative, and the space between them fills with field.</p>
+  <p>What makes this special: the field between the plates is the <strong>same everywhere</strong> &mdash; same size, same direction, at every point in the gap. We call that a <strong>uniform</strong> field, and we draw it as evenly spaced parallel arrows.</p>
+<div class="fig">
+<svg viewBox="0 0 620 250" role="img" aria-label="Two parallel plates with evenly spaced field arrows running from the positive plate to the negative plate.">
+<rect x="120" y="40" width="14" height="160" class="sp"/>
+<rect x="446" y="40" width="14" height="160" class="sn"/>
+<text x="127" y="28" font-size="14" text-anchor="middle" class="tp">+</text>
+<text x="453" y="28" font-size="14" text-anchor="middle" class="tn">&minus;</text>
+<g class="ln" stroke-width="1.5">
+<path d="M142 62L432 62"/><path d="M432 62L423 57M432 62L423 67"/>
+<path d="M142 97L432 97"/><path d="M432 97L423 92M432 97L423 102"/>
+<path d="M142 132L432 132"/><path d="M432 132L423 127M432 132L423 137"/>
+<path d="M142 167L432 167"/><path d="M432 167L423 162M432 167L423 172"/>
+</g>
+<path d="M127 218L453 218" class="ln" stroke-width="1"/>
+<path d="M127 212L127 224M453 212L453 224" class="ln" stroke-width="1"/>
+<text x="290" y="240" font-size="13" text-anchor="middle" class="tt">d &mdash; the gap, in metres</text>
+<text x="500" y="110" font-size="13" class="tt">V across</text>
+<text x="500" y="129" font-size="13" class="tt">the plates</text>
+<text x="290" y="200" font-size="12" text-anchor="middle" class="t2">same size and direction everywhere</text>
+</svg></div>
+  <p>The size of that field comes from one short formula:</p>
+  <div class="key">E = V / d &nbsp;&nbsp;&mdash; volts across the gap, divided by the gap <strong>in metres</strong></div>
+  <p><strong>A worked number.</strong> A potential difference of 5 kV across plates 50 mm apart.</p>
+  <p>Convert both: 5 kV = 5000 V, and 50 mm = 0.050 m.</p>
+  <p>E = 5000 / 0.050 = <strong>1.0 &times; 10<sup>5</sup> N/C</strong>.</p>
+  <p>Notice there is no kQ/r<sup>2</sup> anywhere here, and no distance squared. Plates are the easy case &mdash; the moment you see two plates and a voltage, reach for V/d.</p>
+</div>
+
+<div class="card">
+  <h2>10. When a charge hangs in balance</h2>
+  <p class="lede">The single most common calculation in this topic. Learn the shape of it once.</p>
+  <p>Hang a small charged ball on a thread inside a sideways field and it will not hang straight down. The field pushes it sideways, so the thread settles at an angle and stays there.</p>
+  <p><strong>Staying there</strong> is the whole key. Nothing is moving, so all the forces must cancel. Three forces act:</p>
+<div class="fig">
+<svg viewBox="0 0 620 290" role="img" aria-label="A ball on a thread leaning at an angle, with its three forces drawn, and the same three forces redrawn as a right-angled triangle.">
+<line x1="150" y1="30" x2="250" y2="30" class="ln" stroke-width="3"/>
+<line x1="200" y1="30" x2="200" y2="200" class="ln" stroke-width="0.75" stroke-dasharray="5 4" opacity=".5"/>
+<line x1="200" y1="30" x2="262" y2="170" class="ln" stroke-width="1.5"/>
+<circle cx="262" cy="178" r="15" class="sp"/><text x="262" y="184" font-size="13" text-anchor="middle" class="tp">+</text>
+<path d="M200 110A85 85 0 0 0 226 128" fill="none" stroke="var(--neg-line)" stroke-width="1.5"/>
+<text x="206" y="146" font-size="12" class="t2">&theta;</text>
+<g stroke="var(--pos-line)" stroke-width="2.5" fill="none">
+<path d="M262 193L262 250"/><path d="M262 250L257 241M262 250L267 241"/>
+<path d="M277 178L334 178"/><path d="M334 178L325 173M334 178L325 183"/>
+</g>
+<g stroke="var(--neg-line)" stroke-width="2.5" fill="none">
+<path d="M254 160L218 78"/><path d="M218 78L219 89M218 78L228 83"/>
+</g>
+<text x="262" y="270" font-size="12" text-anchor="middle" class="tt">weight mg, down</text>
+<text x="342" y="183" font-size="12" class="tt">electric force qE, sideways</text>
+<text x="150" y="80" font-size="12" text-anchor="end" class="tt">tension T, along the thread</text>
+<path d="M430 80L430 200L560 200Z" class="su" opacity=".5"/>
+<g stroke="var(--pos-line)" stroke-width="2.5" fill="none">
+<path d="M430 80L430 196"/><path d="M430 196L425 187M430 196L435 187"/>
+<path d="M430 200L556 200"/><path d="M556 200L547 195M556 200L547 205"/>
+</g>
+<line x1="430" y1="80" x2="560" y2="200" stroke="var(--neg-line)" stroke-width="2.5"/>
+<path d="M430 118A40 40 0 0 0 442 130" fill="none" stroke="var(--neg-line)" stroke-width="1.5"/>
+<text x="446" y="128" font-size="12" class="t2">&theta;</text>
+<text x="420" y="145" font-size="12" text-anchor="end" class="tt">mg</text>
+<text x="494" y="222" font-size="12" text-anchor="middle" class="tt">qE</text>
+<text x="510" y="128" font-size="12" class="tt">T</text>
+<text x="495" y="60" font-size="13" font-weight="500" text-anchor="middle" class="tt">the same three forces,</text>
+<text x="495" y="76" font-size="13" font-weight="500" text-anchor="middle" class="tt">nose to tail</text>
+</svg></div>
+  <p>Split the tension into its up part and its sideways part. Up must balance the weight, sideways must balance the electric force:</p>
+  <p>T cos&nbsp;&theta; = mg &nbsp;&nbsp;(vertical) &nbsp;&nbsp;&nbsp;&nbsp; T sin&nbsp;&theta; = qE &nbsp;&nbsp;(horizontal)</p>
+  <p>Now divide the second by the first. The T cancels and disappears completely:</p>
+  <div class="key">tan &theta; = qE / mg &nbsp;&nbsp;&rarr;&nbsp;&nbsp; q = mg tan &theta; / E</div>
+  <p>That cancellation is the whole trick. You are never told the tension and you never need it. Any question that hangs a charge on a thread is this one formula with different numbers.</p>
+  <p>And the direction tells you the sign: if the ball leans the <em>same</em> way the field points, the charge is positive. If it leans against the field, it is negative.</p>
+</div>
+
+<div class="card">
+  <h2>11. Grams, millimetres and g</h2>
+  <p class="lede">Ten marks have never been lost to Gauss's law. They are lost here.</p>
+  <p>These questions hand you numbers in whatever units suit the sentence, and every formula expects kilograms, metres and volts. Convert before you start, on their own lines of working.</p>
+<div class="fig">
+<svg viewBox="0 0 620 300" role="img" aria-label="A table of conversions from grams, millimetres and kilovolts, and a box showing that not every number in a question is needed.">
+<text x="20" y="28" font-size="13" font-weight="500" class="tt">What the question says &rarr; what the formula needs</text>
+<g>
+<rect x="20" y="44" width="580" height="38" rx="7" class="su"/>
+<text x="40" y="68" font-size="13" class="tu">0.4 g</text><text x="190" y="68" font-size="13" class="tu">&rarr; divide by 1000 &rarr;</text><text x="400" y="68" font-size="13" font-weight="500" class="tu">4.0 &times; 10⁻⁴ kg</text>
+<rect x="20" y="90" width="580" height="38" rx="7" class="su"/>
+<text x="40" y="114" font-size="13" class="tu">50 mm</text><text x="190" y="114" font-size="13" class="tu">&rarr; divide by 1000 &rarr;</text><text x="400" y="114" font-size="13" font-weight="500" class="tu">0.050 m</text>
+<rect x="20" y="136" width="580" height="38" rx="7" class="su"/>
+<text x="40" y="160" font-size="13" class="tu">5 kV</text><text x="190" y="160" font-size="13" class="tu">&rarr; multiply by 1000 &rarr;</text><text x="400" y="160" font-size="13" font-weight="500" class="tu">5000 V</text>
+<rect x="20" y="182" width="580" height="38" rx="7" class="sp"/>
+<text x="40" y="206" font-size="13" class="tp">mass m</text><text x="190" y="206" font-size="13" class="tp">&rarr; multiply by 9.8 &rarr;</text><text x="400" y="206" font-size="13" font-weight="500" class="tp">weight mg, in newtons</text>
+</g>
+<rect x="20" y="238" width="580" height="48" rx="7" class="sn"/>
+<text x="310" y="260" font-size="13" font-weight="500" text-anchor="middle" class="tn">Not every number in a question has a job.</text>
+<text x="310" y="278" font-size="12" text-anchor="middle" class="tn">A string length, a plate area, a mass of a thread &mdash; some are there to see if you know what you need.</text>
+</svg></div>
+  <div class="key">Mass is not weight. <strong>m</strong> is in kilograms; <strong>mg</strong> is a force in newtons. The formula wants mg.</div>
+  <p>And do not panic when a number goes unused. If a question gives a 20.0 cm string and your working never touches it, that is fine &mdash; the length would only matter if you were asked <em>how far sideways</em> the ball moved. Forcing every number into the answer is how you end up with nonsense.</p>
+</div>
+
+<div class="card">
+  <h2>12. Gauss's law</h2>
+  <p class="lede">This is bookwork. It is written out the same way every year, so learn the words and the picture.</p>
+  <p>Picture any closed surface &mdash; a bag, a box, a balloon &mdash; sitting in an electric field. <strong>Flux</strong> is a measure of how much field passes out through that surface.</p>
+  <p>Gauss's law says something remarkable: the total flux out depends on <em>nothing but the charge inside</em>. Not the shape of the surface, not its size, not where the charge sits inside it.</p>
+  <div class="key">&Phi; = &oint; E &middot; dA = Q<sub>enclosed</sub> / &epsilon;<sub>0</sub> &nbsp;&nbsp;with &epsilon;<sub>0</sub> = 8.85 &times; 10<sup>&minus;12</sup></div>
+  <p>By itself that looks useless, because the integral is frightening. The power comes from <strong>choosing the surface cleverly</strong>.</p>
+  <p>For a single point charge, choose a <strong>sphere centred on the charge</strong>. Two things then become true at once, and they are the two things the examiner wants you to say:</p>
+  <p>&bull; By symmetry, E has the <strong>same size</strong> at every point on that sphere.<br>&bull; E points straight out, so it is <strong>perpendicular</strong> to the surface everywhere.</p>
+<div class="fig">
+<svg viewBox="0 0 620 280" role="img" aria-label="A point charge at the centre of a spherical Gaussian surface, with radial field arrows passing out through the sphere.">
+<circle cx="310" cy="140" r="98" class="ln" stroke-width="1.25" fill="none" stroke-dasharray="7 5"/>
+<ellipse cx="310" cy="140" rx="98" ry="30" class="ln" stroke-width="0.6" fill="none" opacity=".4"/>
+<circle cx="310" cy="140" r="18" class="sp"/><text x="310" y="146" font-size="14" text-anchor="middle" class="tp">+Q</text>
+<g class="ln" stroke-width="1.5">
+<path d="M310 122L310 70"/><path d="M310 70L305 79M310 70L315 79"/>
+<path d="M310 158L310 210"/><path d="M310 210L305 201M310 210L315 201"/>
+<path d="M328 140L380 140"/><path d="M380 140L371 135M380 140L371 145"/>
+<path d="M292 140L240 140"/><path d="M240 140L249 135M240 140L249 145"/>
+<path d="M323 127L360 90"/><path d="M360 90L349 92M360 90L358 101"/>
+<path d="M297 153L260 190"/><path d="M260 190L271 188M260 190L262 179"/>
+<path d="M323 153L360 190"/><path d="M360 190L358 179M360 190L349 188"/>
+<path d="M297 127L260 90"/><path d="M260 90L262 101M260 90L271 92"/>
+</g>
+<line x1="310" y1="140" x2="241" y2="71" stroke="var(--neg-line)" stroke-width="2"/>
+<text x="258" y="118" font-size="13" font-weight="500" class="tn">r</text>
+<text x="430" y="76" font-size="13" font-weight="500" class="tt">Gaussian surface:</text>
+<text x="430" y="95" font-size="13" font-weight="500" class="tt">a sphere of radius r</text>
+<text x="430" y="122" font-size="12" class="t2">E same size all over it</text>
+<text x="430" y="141" font-size="12" class="t2">E straight out through it</text>
+<text x="430" y="168" font-size="12" class="t2">area = 4&pi;r&sup2;</text>
+<text x="310" y="256" font-size="12" text-anchor="middle" class="t2">Draw this picture. The question asks for it, and it is worth marks on its own.</text>
+</svg></div>
+  <p>Because E is constant and perpendicular, the integral collapses into a multiplication &mdash; field times area:</p>
+  <p>&oint; E &middot; dA = E &times; 4&pi;r<sup>2</sup></p>
+  <p>Set that equal to Q/&epsilon;<sub>0</sub> and make E the subject:</p>
+  <div class="key">E (4&pi;r<sup>2</sup>) = Q / &epsilon;<sub>0</sub> &nbsp;&nbsp;&rarr;&nbsp;&nbsp; E = Q / (4&pi;&epsilon;<sub>0</sub>r<sup>2</sup>) = kQ / r<sup>2</sup></div>
+  <p>And out drops Coulomb's law. The k you have been using all along is just a shorthand: <strong>k = 1/(4&pi;&epsilon;<sub>0</sub>) = 9.0 &times; 10<sup>9</sup></strong>.</p>
+</div>
+
+<div class="card">
+  <h2>Ready?</h2>
+  <p>Part 3 walks you through three more past-paper problems &mdash; two hanging charges and the Gauss's law derivation.</p>
+  <div class="btns"><button class="main" id="goQ3">Start part 3 quiz</button></div>
+</div>
+
+</section>
+
+<section id="r4" class="hide">
+
+<div class="card">
+  <h2>13. What a capacitor stores</h2>
+  <p class="lede">The biggest topic on the paper. More marks ride on these four readings than on anything else in the course.</p>
+  <p>A capacitor is just two conductors with a gap between them. Push charge onto one and an equal, opposite charge appears on the other, and a potential difference builds up across the gap.</p>
+  <p>How much charge it holds per volt is its <strong>capacitance</strong>:</p>
+  <div class="key">C = Q / V &nbsp;&nbsp;&mdash; measured in farads (F)</div>
+  <p>A farad is enormous, so real capacitors come in microfarads (&micro;F, 10<sup>&minus;6</sup>), nanofarads (nF, 10<sup>&minus;9</sup>) and picofarads (pF, 10<sup>&minus;12</sup>).</p>
+  <p>Here is the part that trips people. <strong>C does not depend on Q or V.</strong> Double the charge and the voltage doubles too, leaving C unchanged. Capacitance is fixed by the <em>shape</em> of the thing &mdash; how big the plates are and how far apart.</p>
+<div class="fig">
+<svg viewBox="0 0 620 260" role="img" aria-label="A parallel plate capacitor with area A and separation d, and the same capacitor with a dielectric slab filling the gap.">
+<rect x="60" y="48" width="140" height="11" class="sp"/>
+<rect x="60" y="150" width="140" height="11" class="sn"/>
+<text x="130" y="40" font-size="12" text-anchor="middle" class="tp">+Q</text>
+<text x="130" y="182" font-size="12" text-anchor="middle" class="tn">&minus;Q</text>
+<g class="ln" stroke-width="1"><path d="M90 68L90 144"/><path d="M90 144L86 136M90 144L94 136"/><path d="M130 68L130 144"/><path d="M130 144L126 136M130 144L134 136"/><path d="M170 68L170 144"/><path d="M170 144L166 136M170 144L174 136"/></g>
+<path d="M222 59L222 150" class="ln" stroke-width="1"/>
+<path d="M216 59L228 59M216 150L228 150" class="ln" stroke-width="1"/>
+<text x="238" y="109" font-size="13" class="tt">d</text>
+<text x="130" y="212" font-size="13" text-anchor="middle" class="tt">plate area A</text>
+<text x="130" y="236" font-size="13" font-weight="500" text-anchor="middle" class="tt">C = &epsilon;&#8320;A / d</text>
+<rect x="400" y="48" width="140" height="11" class="sp"/>
+<rect x="400" y="150" width="140" height="11" class="sn"/>
+<rect x="400" y="59" width="140" height="91" class="su" opacity=".8"/>
+<text x="470" y="40" font-size="12" text-anchor="middle" class="tp">+Q</text>
+<text x="470" y="182" font-size="12" text-anchor="middle" class="tn">&minus;Q</text>
+<text x="470" y="110" font-size="13" text-anchor="middle" class="tu">dielectric, constant K</text>
+<text x="470" y="212" font-size="13" text-anchor="middle" class="tt">same plates, filled gap</text>
+<text x="470" y="236" font-size="13" font-weight="500" text-anchor="middle" class="tt">C = K &epsilon;&#8320;A / d</text>
+</svg></div>
+  <div class="key">Bigger plates &rarr; more capacitance. Closer plates &rarr; more capacitance. A dielectric in the gap &rarr; <strong>K times</strong> more capacitance.</div>
+  <p>&epsilon;<sub>0</sub> = 8.85 &times; 10<sup>&minus;12</sup>, the same constant from Gauss's law. The dielectric constant K is just a number &mdash; 4 means four times the capacitance of the same capacitor with air in it.</p>
+</div>
+
+<div class="card">
+  <h2>14. Series and parallel</h2>
+  <p class="lede">Two rules, and one thing to remember about each.</p>
+  <p>Everything in a capacitor network comes from asking a single question about each pair: <strong>what do they share?</strong></p>
+<div class="fig">
+<svg viewBox="0 0 620 300" role="img" aria-label="Capacitors in parallel share the same voltage and their capacitances add; in series they share the same charge and the reciprocals add.">
+<text x="155" y="28" font-size="14" font-weight="500" text-anchor="middle" class="tt">parallel</text>
+<path d="M50 70L120 70M190 70L260 70M50 70L50 140M260 70L260 140M50 140L120 140M190 140L260 140" class="ln" stroke-width="1.5" fill="none"/>
+<g class="ln" stroke-width="2.5"><path d="M148 52L148 88"/><path d="M162 52L162 88"/><path d="M148 122L148 158"/><path d="M162 122L162 158"/></g>
+<path d="M120 70L148 70M162 70L190 70M120 140L148 140M162 140L190 140" class="ln" stroke-width="1.5"/>
+<text x="155" y="182" font-size="12" text-anchor="middle" class="t2">both ends joined together</text>
+<rect x="40" y="200" width="230" height="74" rx="8" class="su"/>
+<text x="155" y="224" font-size="13" font-weight="500" text-anchor="middle" class="tu">they share the VOLTAGE</text>
+<text x="155" y="246" font-size="12" text-anchor="middle" class="tu">charges add up</text>
+<text x="155" y="266" font-size="13" font-weight="500" text-anchor="middle" class="tu">C = C&#8321; + C&#8322;</text>
+<text x="465" y="28" font-size="14" font-weight="500" text-anchor="middle" class="tt">series</text>
+<path d="M360 105L410 105M424 105L506 105M520 105L570 105" class="ln" stroke-width="1.5"/>
+<g class="ln" stroke-width="2.5"><path d="M410 85L410 125"/><path d="M424 85L424 125"/><path d="M506 85L506 125"/><path d="M520 85L520 125"/></g>
+<circle cx="465" cy="105" r="3.5" class="tt"/>
+<text x="465" y="146" font-size="12" text-anchor="middle" class="t2">joined end to end</text>
+<text x="465" y="166" font-size="12" text-anchor="middle" class="t2">charge is trapped in the middle</text>
+<rect x="350" y="200" width="230" height="74" rx="8" class="su"/>
+<text x="465" y="224" font-size="13" font-weight="500" text-anchor="middle" class="tu">they share the CHARGE</text>
+<text x="465" y="246" font-size="12" text-anchor="middle" class="tu">voltages add up</text>
+<text x="465" y="266" font-size="13" font-weight="500" text-anchor="middle" class="tu">1/C = 1/C&#8321; + 1/C&#8322;</text>
+</svg></div>
+  <div class="key">Capacitors are <strong>backwards from resistors.</strong> Resistors add in series; capacitors add in parallel.</div>
+  <p>That is not an arbitrary fact to memorise. Two capacitors side by side in parallel are literally one capacitor with twice the plate area, and more area means more capacitance. Two in series make the total gap wider, and a wider gap means less.</p>
+  <h3>When one capacitor is really two in parallel</h3>
+  <p>Slide a slab of dielectric in so it covers only <em>part</em> of the plate area, but fills the gap from top to bottom. You now have two capacitors side by side &mdash; and because both pieces sit between the <strong>same two plates</strong>, both have the same p.d. across them.</p>
+  <p>Same voltage means <strong>parallel</strong>. Work out each piece from its own share of the area, then add.</p>
+<div class="fig">
+<svg viewBox="0 0 620 230" role="img" aria-label="A dielectric slab covering a third of the plate area splits the capacitor into an air part and a dielectric part, side by side in parallel.">
+<rect x="90" y="56" width="400" height="10" class="sp"/>
+<rect x="90" y="150" width="400" height="10" class="sn"/>
+<rect x="357" y="66" width="133" height="84" class="su"/>
+<text x="423" y="100" font-size="12" text-anchor="middle" class="tu">K = 4</text>
+<text x="423" y="120" font-size="12" text-anchor="middle" class="tu">slab</text>
+<text x="223" y="104" font-size="13" text-anchor="middle" class="t2">air</text>
+<path d="M90 184L357 184" class="ln" stroke-width="1"/>
+<path d="M90 178L90 190M357 178L357 190" class="ln" stroke-width="1"/>
+<text x="223" y="204" font-size="12" text-anchor="middle" class="tt">two thirds of the area</text>
+<path d="M357 184L490 184" class="ln" stroke-width="1"/>
+<path d="M490 178L490 190" class="ln" stroke-width="1"/>
+<text x="423" y="204" font-size="12" text-anchor="middle" class="tt">one third</text>
+<path d="M512 66L512 150" class="ln" stroke-width="1"/>
+<path d="M506 66L518 66M506 150L518 150" class="ln" stroke-width="1"/>
+<text x="528" y="113" font-size="12" class="tt">d</text>
+<text x="290" y="40" font-size="13" font-weight="500" text-anchor="middle" class="tt">one pair of plates, two capacitors, same voltage &rarr; add them</text>
+<text x="290" y="224" font-size="12" text-anchor="middle" class="t2">C = &epsilon;&#8320;(&#8532;A)/d + K&epsilon;&#8320;(&#8531;A)/d</text>
+</svg></div>
+  <p>Watch the trap: the slab's <em>thickness</em> here equals the full gap, so it is not splitting the capacitor top-from-bottom. It is splitting it side-by-side, by area. Check which one a question means before you start.</p>
+</div>
+
+<div class="card">
+  <h2>15. Energy in a capacitor</h2>
+  <p>Charging a capacitor takes work. You are pushing charge onto a plate that is already charged and pushing back, so each extra bit costs more than the last. That work is stored in the field between the plates, and you get it back when it discharges.</p>
+<div class="fig">
+<svg viewBox="0 0 620 240" role="img" aria-label="A graph of charge against voltage, a straight line through the origin, with the shaded triangle underneath labelled as the stored energy.">
+<line x1="100" y1="190" x2="480" y2="190" class="ln" stroke-width="1.25"/>
+<line x1="100" y1="190" x2="100" y2="40" class="ln" stroke-width="1.25"/>
+<path d="M100 190L420 60L420 190Z" class="su" opacity=".75"/>
+<line x1="100" y1="190" x2="420" y2="60" stroke="var(--pos-line)" stroke-width="2.5"/>
+<text x="266" y="150" font-size="13" font-weight="500" text-anchor="middle" class="tu">area = energy stored</text>
+<text x="266" y="170" font-size="12" text-anchor="middle" class="tu">&frac12; &times; base &times; height</text>
+<text x="290" y="216" font-size="13" text-anchor="middle" class="tt">voltage V</text>
+<text x="74" y="115" font-size="13" text-anchor="middle" class="tt">charge Q</text>
+<circle cx="420" cy="60" r="4" class="tt"/>
+<line x1="420" y1="60" x2="420" y2="190" class="ln" stroke-width="0.75" stroke-dasharray="4 4" opacity=".5"/>
+<text x="434" y="56" font-size="12" class="t2">slope is C</text>
+<text x="528" y="100" font-size="13" font-weight="500" class="tt">U = &frac12;QV</text>
+<text x="528" y="124" font-size="13" font-weight="500" class="tt">U = &frac12;CV&sup2;</text>
+<text x="528" y="148" font-size="13" font-weight="500" class="tt">U = Q&sup2;/2C</text>
+</svg></div>
+  <p>Because Q and V rise together in a straight line, the stored energy is the triangle underneath &mdash; half of Q times V, not the whole rectangle. Substituting Q = CV gives three versions of the same formula:</p>
+  <div class="key">U = &frac12;QV = &frac12;CV<sup>2</sup> = Q<sup>2</sup> / 2C</div>
+  <p>They always give the same answer, so pick whichever matches the two things you already know. Know C and V? Use &frac12;CV<sup>2</sup>. Know Q and C &mdash; which is the usual case after charge has been shared around? Use Q<sup>2</sup>/2C.</p>
+  <p>The &frac12; is the most commonly dropped symbol on the whole paper. It costs a mark every time.</p>
+</div>
+
+<div class="card">
+  <h2>16. Sharing charge when the battery is removed</h2>
+  <p class="lede">Read this one twice. It is worth more marks than anything else in part 4.</p>
+  <p>Everything hangs on one question: <strong>is the battery still connected?</strong></p>
+  <p>&bull; <strong>Battery connected.</strong> The battery holds the voltage fixed. Change the capacitor and the charge is what adjusts.<br>&bull; <strong>Battery removed.</strong> The charge is now stranded &mdash; there is nowhere for it to go. Change something and the <em>voltage</em> is what adjusts.</p>
+  <p>Now connect a charged capacitor to an uncharged one, with the battery already removed. Three facts follow, in order:</p>
+<div class="fig">
+<svg viewBox="0 0 620 290" role="img" aria-label="Before: one capacitor holds all the charge at a high voltage. After: the charge is shared between both at a lower common voltage, and the stored energy has dropped.">
+<text x="20" y="28" font-size="13" font-weight="500" class="tt">before</text>
+<rect x="60" y="48" width="100" height="56" rx="8" class="sp"/>
+<text x="110" y="72" font-size="12" text-anchor="middle" class="tp">2 &micro;F</text>
+<text x="110" y="92" font-size="12" text-anchor="middle" class="tp">800 &micro;C</text>
+<text x="110" y="124" font-size="13" font-weight="500" text-anchor="middle" class="tt">400 V</text>
+<rect x="210" y="48" width="100" height="56" rx="8" class="su"/>
+<text x="260" y="72" font-size="12" text-anchor="middle" class="tu">6 &micro;F</text>
+<text x="260" y="92" font-size="12" text-anchor="middle" class="tu">0 &micro;C</text>
+<text x="260" y="124" font-size="13" font-weight="500" text-anchor="middle" class="tt">0 V</text>
+<path d="M340 76L392 76" class="ln" stroke-width="2"/><path d="M392 76L383 71M392 76L383 81" class="ln" stroke-width="2"/>
+<text x="366" y="62" font-size="12" text-anchor="middle" class="t2">join</text>
+<text x="424" y="28" font-size="13" font-weight="500" class="tt">after</text>
+<rect x="424" y="48" width="78" height="56" rx="8" class="sp"/>
+<text x="463" y="72" font-size="12" text-anchor="middle" class="tp">2 &micro;F</text>
+<text x="463" y="92" font-size="12" text-anchor="middle" class="tp">200 &micro;C</text>
+<rect x="512" y="48" width="78" height="56" rx="8" class="sp"/>
+<text x="551" y="72" font-size="12" text-anchor="middle" class="tp">6 &micro;F</text>
+<text x="551" y="92" font-size="12" text-anchor="middle" class="tp">600 &micro;C</text>
+<text x="507" y="124" font-size="13" font-weight="500" text-anchor="middle" class="tt">both at 100 V &mdash; total still 800 &micro;C</text>
+<text x="20" y="176" font-size="13" font-weight="500" class="tt">but the stored energy does not survive the trip</text>
+<rect x="60" y="192" width="250" height="34" rx="7" class="su"/>
+<text x="185" y="214" font-size="13" text-anchor="middle" class="tu">before: 0.16 J</text>
+<rect x="60" y="234" width="63" height="34" rx="7" class="su"/>
+<text x="91" y="256" font-size="12" text-anchor="middle" class="tu">0.04 J</text>
+<rect x="131" y="234" width="179" height="34" rx="7" class="sp" opacity=".55"/>
+<text x="220" y="256" font-size="12" text-anchor="middle" class="tp">0.12 J lost as heat</text>
+<text x="338" y="214" font-size="12" class="t2">charge: conserved</text>
+<text x="338" y="256" font-size="12" class="t2">energy: not conserved</text>
+</svg></div>
+  <p><strong>1. The total charge is unchanged.</strong> It had nowhere else to go, so add up what you started with.<br><strong>2. They end up in parallel</strong> &mdash; joined plate to plate, so they settle at one common voltage.<br><strong>3. That voltage is V = Q<sub>total</sub> / C<sub>total</sub>.</strong></p>
+  <div class="key">Charge is conserved. Energy is not. The stored energy <strong>always</strong> drops.</div>
+  <p>Where does it go? While the charge is rushing across, a current flows through the resistance of the connecting wires, and that current heats them. A little is radiated away as well. The loss is real, and it happens no matter how good your wires are.</p>
+  <p>Examiners love asking you to explain this, so have the sentence ready: <em>charge is conserved but energy is not, because the transient current dissipates energy as heat in the resistance of the connecting wires.</em></p>
+</div>
+
+<div class="card">
+  <h2>Ready?</h2>
+  <p>Part 4 walks you through four past-paper capacitor problems &mdash; charge sharing, a part-filled capacitor, a mixed network, and finding a dielectric constant.</p>
+  <div class="btns"><button class="main" id="goQ4">Start part 4 quiz</button></div>
+</div>
+
+</section>
+
+<section id="q1" class="hide">
+  <div class="bar">
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <span class="count" id="count"></span>
+    <span class="chip" id="chip"></span>
+  </div>
+  <div id="stage" aria-live="polite"></div>
+  <div class="btns" style="margin-top:18px">
+    <button id="prev">Back</button>
+    <button id="reset">Start over</button>
+    <button id="goR1">Readings</button>
+  </div>
+</section>
+
+<section id="q2" class="hide">
+  <div class="bar">
+    <div class="track"><div class="fill" id="gfill"></div></div>
+    <span class="count" id="gcount"></span>
+    <span class="chip" id="gchip"></span>
+  </div>
+  <div id="gstage" aria-live="polite"></div>
+  <div class="btns" style="margin-top:18px">
+    <button id="greset">Start over</button>
+    <button id="goR2">Readings</button>
+  </div>
+</section>
+
+<section id="q3" class="hide">
+  <div class="bar">
+    <div class="track"><div class="fill" id="hfill"></div></div>
+    <span class="count" id="hcount"></span>
+    <span class="chip" id="hchip"></span>
+  </div>
+  <div id="hstage" aria-live="polite"></div>
+  <div class="btns" style="margin-top:18px">
+    <button id="hreset">Start over</button>
+    <button id="goR3">Readings</button>
+  </div>
+</section>
+
+<section id="q4" class="hide">
+  <div class="bar">
+    <div class="track"><div class="fill" id="jfill"></div></div>
+    <span class="count" id="jcount"></span>
+    <span class="chip" id="jchip"></span>
+  </div>
+  <div id="jstage" aria-live="polite"></div>
+  <div class="btns" style="margin-top:18px">
+    <button id="jreset">Start over</button>
+    <button id="goR4">Readings</button>
+  </div>
+</section>
+
+<p class="foot">Answers follow Giancoli, <em>Physics: Principles with Applications</em>, and the PHYS1025 lecture slides. Problems from the 2012, 2013 and 2024 papers.</p>
+<p class="foot" style="margin-top:10px">A quiz created by Odireleng for Mokgadi.</p>
+
+</div>
+
+<script>
+var SVG_COND='<svg viewBox="0 0 560 150" role="img" aria-label="Electrons cross from a neutral rod to a positive rod on contact, leaving both positive."><rect x="10" y="20" width="130" height="30" rx="6" class="sp"/><text x="75" y="40" font-size="12" text-anchor="middle" class="tp">+ + + +</text><rect x="156" y="20" width="170" height="30" rx="6" class="su"/><text x="241" y="40" font-size="12" text-anchor="middle" class="tu">neutral</text><rect x="10" y="90" width="130" height="30" rx="6" class="sp"/><text x="75" y="110" font-size="12" text-anchor="middle" class="tp">+ +</text><rect x="156" y="90" width="170" height="30" rx="6" class="sp"/><text x="241" y="110" font-size="12" text-anchor="middle" class="tp">+ + +</text><text x="344" y="110" font-size="12" class="t2">both positive</text></svg>';
+var SVG_IND='<svg viewBox="0 0 560 150" role="img" aria-label="A charged rod separates charge in a neutral rod without touching it."><rect x="10" y="20" width="110" height="30" rx="6" class="sp"/><text x="65" y="40" font-size="12" text-anchor="middle" class="tp">+ + +</text><rect x="146" y="20" width="190" height="30" rx="6" class="su"/><text x="172" y="40" font-size="12" class="tu">&minus; &minus;</text><text x="298" y="40" font-size="12" class="tu">+ +</text><text x="352" y="40" font-size="12" class="t2">net still zero</text><rect x="10" y="90" width="110" height="30" rx="6" class="sp"/><text x="65" y="110" font-size="12" text-anchor="middle" class="tp">+ + +</text><rect x="146" y="90" width="88" height="30" rx="6" class="sn"/><text x="190" y="110" font-size="12" text-anchor="middle" class="tn">&minus; &minus;</text><rect x="248" y="90" width="88" height="30" rx="6" class="sp"/><text x="292" y="110" font-size="12" text-anchor="middle" class="tp">+ +</text><text x="352" y="110" font-size="12" class="t2">cut: two charged pieces</text></svg>';
+var SVG_EMF='<svg viewBox="0 0 440 120" role="img" aria-label="A battery as a perfect emf in series with internal resistance r."><rect x="70" y="16" width="300" height="66" rx="8" class="ln" fill="none" stroke-dasharray="6 4" opacity=".5"/><line x1="40" y1="52" x2="150" y2="52" class="ln" stroke-width="1.5"/><line x1="150" y1="38" x2="150" y2="66" class="ln" stroke-width="1.5"/><line x1="162" y1="30" x2="162" y2="74" class="ln" stroke-width="1.5"/><text x="156" y="98" font-size="13" text-anchor="middle" class="tt">&#8496;</text><line x1="162" y1="52" x2="230" y2="52" class="ln" stroke-width="1.5"/><path d="M230 52L238 40L252 64L266 40L280 64L288 52" class="ln" stroke-width="1.5"/><text x="259" y="98" font-size="13" text-anchor="middle" class="tt">r</text><line x1="288" y1="52" x2="400" y2="52" class="ln" stroke-width="1.5"/><circle cx="40" cy="52" r="4" class="tt"/><text x="34" y="40" font-size="12" text-anchor="end" class="tt">a</text><circle cx="400" cy="52" r="4" class="tt"/><text x="408" y="40" font-size="12" class="tt">b</text></svg>';
+
+var FIG_LINE='<svg viewBox="0 0 420 100" role="img" aria-label="Two charges on a line with the point P exactly midway between them."><line x1="60" y1="46" x2="360" y2="46" class="ln" stroke-width="1"/><circle cx="60" cy="46" r="15" class="sp"/><text x="60" y="51" font-size="13" text-anchor="middle" class="tp">+</text><circle cx="360" cy="46" r="15" class="sn"/><text x="360" y="51" font-size="13" text-anchor="middle" class="tn">&minus;</text><circle cx="210" cy="46" r="4" class="tt"/><text x="210" y="30" font-size="12" text-anchor="middle" class="t2">P</text><text x="60" y="80" font-size="12" text-anchor="middle" class="t2">Q&#8321; = +5.8 &micro;C</text><text x="360" y="80" font-size="12" text-anchor="middle" class="t2">Q&#8322; = &minus;8.0 &micro;C</text><text x="210" y="80" font-size="12" text-anchor="middle" class="t2">6.0 cm apart</text></svg>';
+
+var FIG_LIKE='<svg viewBox="0 0 420 100" role="img" aria-label="Two positive charges on a line with the point P midway between them."><line x1="60" y1="46" x2="360" y2="46" class="ln" stroke-width="1"/><circle cx="60" cy="46" r="17" class="sp"/><text x="60" y="51" font-size="13" text-anchor="middle" class="tp">+</text><circle cx="360" cy="46" r="13" class="sp"/><text x="360" y="51" font-size="13" text-anchor="middle" class="tp">+</text><circle cx="210" cy="46" r="4" class="tt"/><text x="210" y="30" font-size="12" text-anchor="middle" class="t2">P</text><text x="60" y="80" font-size="12" text-anchor="middle" class="t2">Q&#8321; = +12 nC</text><text x="360" y="80" font-size="12" text-anchor="middle" class="t2">Q&#8322; = +3 nC</text><text x="210" y="80" font-size="12" text-anchor="middle" class="t2">0.18 m apart</text></svg>';
+
+var FIG_SQ='<svg viewBox="0 0 420 220" role="img" aria-label="Four charges at the corners of a square with the centre marked."><rect x="130" y="30" width="160" height="160" class="ln" fill="none" stroke-width="0.75" opacity=".6"/><line x1="130" y1="30" x2="290" y2="190" class="ln" stroke-width="0.5" stroke-dasharray="4 4" opacity=".4"/><line x1="290" y1="30" x2="130" y2="190" class="ln" stroke-width="0.5" stroke-dasharray="4 4" opacity=".4"/><circle cx="210" cy="110" r="4" class="tt"/><circle cx="130" cy="30" r="14" class="sp"/><text x="130" y="35" font-size="12" text-anchor="middle" class="tp">+</text><text x="130" y="16" font-size="12" text-anchor="middle" class="t2">+2q</text><circle cx="290" cy="30" r="14" class="sn"/><text x="290" y="35" font-size="12" text-anchor="middle" class="tn">&minus;</text><text x="290" y="16" font-size="12" text-anchor="middle" class="t2">&minus;4q</text><circle cx="290" cy="190" r="14" class="sp"/><text x="290" y="195" font-size="12" text-anchor="middle" class="tp">+</text><text x="290" y="214" font-size="12" text-anchor="middle" class="t2">+4q</text><circle cx="130" cy="190" r="14" class="sn"/><text x="130" y="195" font-size="12" text-anchor="middle" class="tn">&minus;</text><text x="130" y="214" font-size="12" text-anchor="middle" class="t2">&minus;2q</text><text x="340" y="106" font-size="12" class="t2">a = 10 cm</text><text x="340" y="124" font-size="12" class="t2">q = 8 nC</text></svg>';
+
+var FIG_TRI='<svg viewBox="0 0 420 220" role="img" aria-label="Three equal positive charges at the corners of an equilateral triangle, with the apex labelled P."><path d="M210 40L130 185L290 185Z" class="ln" fill="none" stroke-width="0.75" opacity=".6"/><circle cx="210" cy="40" r="14" class="sp"/><text x="210" y="45" font-size="12" text-anchor="middle" class="tp">+</text><text x="186" y="34" font-size="12" text-anchor="end" class="tt">P</text><circle cx="130" cy="185" r="14" class="sp"/><text x="130" y="190" font-size="12" text-anchor="middle" class="tp">+</text><circle cx="290" cy="185" r="14" class="sp"/><text x="290" y="190" font-size="12" text-anchor="middle" class="tp">+</text><text x="158" y="118" font-size="12" class="t2">a</text><text x="256" y="118" font-size="12" class="t2">a</text><text x="210" y="208" font-size="12" text-anchor="middle" class="t2">a = 20 cm</text><text x="330" y="112" font-size="12" class="t2">q = 5.0 nC</text></svg>';
+
+var Q=[
+{t:"Atoms",s:"Reading 1",type:"mcq",
+ p:"Which particle can move from one object to another?",
+ o:[{x:"The electron",c:1,f:"Right. Electrons sit on the outside and some are loose enough to leave."},
+    {x:"The proton",f:"No. Protons are stuck inside the nucleus and never leave."},
+    {x:"Both, equally easily",f:"No. Only electrons move. Protons stay put."},
+    {x:"Neither — charge just appears",f:"No. Charge is never created. It is moved, by electrons."}],
+ hint:"Which one is on the outside of the atom?",
+ sol:"Electrons sit outside the nucleus and the outer ones are loosely held, so they can be pulled away. Protons are locked in the nucleus. Every charging process you will meet is electrons moving.",
+ note:"Reading 1."},
+{t:"Atoms",s:"Reading 1",type:"mcq",
+ p:"An object loses some of its electrons. What is it now?",
+ o:[{x:"Positive",c:1,f:"Right. Fewer negatives means the positives are no longer balanced."},
+    {x:"Negative",f:"The other way round. Losing negatives leaves you more positive."},
+    {x:"Still neutral",f:"No. The protons are still there but there are fewer electrons to cancel them."},
+    {x:"It depends on the material",f:"No. Lose electrons and you are positive, whatever the material."}],
+ hint:"The protons have not gone anywhere. Only the electrons changed.",
+ sol:"The protons stay exactly as they were. Take some electrons away and there is no longer enough negative charge to cancel all the positive, so the object is left positive.",
+ note:"Reading 1."},
+{t:"Atoms",s:"Reading 1",type:"mcq",
+ p:"What does it mean for an object to be neutral?",
+ o:[{x:"It has equal amounts of positive and negative charge",c:1,f:"Right. Packed with charge — just perfectly balanced."},
+    {x:"It contains no charge at all",f:"A very common idea, but wrong. A neutral object is full of charge; the two kinds simply cancel."},
+    {x:"It contains only protons",f:"No — that would be strongly positive."},
+    {x:"It cannot take part in charging",f:"No. Neutral objects are exactly what you charge."}],
+ hint:"Think about what is inside the object, not what you measure from outside.",
+ sol:"A neutral object is not empty. It holds enormous numbers of protons and electrons in exact balance. This matters: a neutral object has electrons available to give away, which is why charging by contact works at all.",
+ note:"Reading 1."},
+{t:"Atoms",s:"Reading 1",type:"mcq",
+ p:"Where are protons found in an atom?",
+ o:[{x:"In the nucleus at the centre",c:1,f:"Right. Heavy, central, and they never move."},
+    {x:"Orbiting the outside",f:"That is where the electrons are."},
+    {x:"Spread evenly through the whole atom",f:"No. They are packed into the tiny nucleus."},
+    {x:"Only in metals",f:"No. Every atom of every material has protons."}],
+ hint:"Look again at the picture in reading 1.",
+ sol:"The nucleus is the heavy centre of the atom and contains the protons. The electrons are outside it, much lighter and much further out.",
+ note:"Reading 1."},
+{t:"Atoms",s:"Going deeper",type:"mcq",
+ p:"Why can protons never be transferred from one object to another by rubbing?",
+ o:[{x:"They are held in the nucleus far too tightly for rubbing to break them loose",c:1,f:"Right — about a million times more tightly than an outer electron."},
+    {x:"They are too heavy to move at all",f:"Weight is not the reason. It is the nuclear binding that stops protons leaving."},
+    {x:"They have no charge",f:"They do — protons carry the positive charge."},
+    {x:"They can be, if you rub hard enough",f:"No amount of rubbing does it. Pulling a proton out of a nucleus would change the element."}],
+ hint:"Compare how tightly each particle is held.",
+ sol:"An outer electron is held by about one electron-volt of energy. A proton is held in the nucleus by millions. Rubbing supplies nowhere near enough, and removing a proton would change what the element is.",
+ note:"Builds on reading 1."},
+{t:"Charge",s:"Reading 2",type:"mcq",
+ p:"Two objects both carry a positive charge. What do they do?",
+ o:[{x:"Push each other apart",c:1,f:"Right. Like charges repel."},
+    {x:"Pull each other together",f:"That is what opposite charges do."},
+    {x:"Nothing — charges only act when touching",f:"No. Charges act across empty space."},
+    {x:"It depends how far apart they are",f:"Distance changes how strongly, not whether they push or pull."}],
+ hint:"Same signs, or opposite signs?",
+ sol:"Like charges repel, opposite charges attract. Two positives push apart, two negatives push apart, and a positive and a negative pull together.",
+ note:"Reading 2."},
+{t:"Charge",s:"Reading 2",type:"mcq",
+ p:"You hold a positively charged rod near a neutral metal rod. Which way do the electrons in the metal move?",
+ o:[{x:"Toward the positive rod",c:1,f:"Right — opposite charges attract."},
+    {x:"Away from the positive rod",f:"No — electrons are negative, so a positive rod pulls them in."},
+    {x:"They do not move at all",f:"They do. In a metal, electrons are free to move around."},
+    {x:"They leave the metal rod completely",f:"Not unless the rods touch or the metal is earthed."}],
+ hint:"Electrons are negative. What does a positive rod do to a negative particle?",
+ sol:"Electrons are negative and the rod is positive, so the rod attracts them. They shift toward the near end, leaving the far end positive. Nothing has left the rod, so its total charge is still zero.",
+ note:"Readings 2 and 4."},
+{t:"Units",s:"Reading 3",type:"num",
+ p:"Write 12 nC in coulombs. Use the form 1.2e-8 for 1.2 × 10⁻⁸.",
+ a:1.2e-8,tol:0.02,u:"C",
+ hint:"n means × 10⁻⁹. So 12 nC is 12 × 10⁻⁹ C — now tidy that up.",
+ sol:"12 nC = 12 × 10⁻⁹ C = 1.2 × 10⁻⁸ C.",
+ note:"Reading 3."},
+{t:"Units",s:"Reading 3",type:"num",
+ p:"Write 5.8 µC in coulombs. Use the form 5.8e-6.",
+ a:5.8e-6,tol:0.02,u:"C",
+ hint:"µ means × 10⁻⁶.",
+ sol:"5.8 µC = 5.8 × 10⁻⁶ C. Micro is six steps down, not nine — mixing up µ and n is the most common slip of all.",
+ note:"Reading 3."},
+{t:"Units",s:"Reading 3",type:"num",
+ p:"A distance is 3.0 cm. What is r² in square metres? Use the form 9e-4.",
+ a:9e-4,tol:0.02,u:"m²",
+ hint:"Convert to metres FIRST, then square. 3.0 cm is 0.030 m.",
+ sol:"First convert: 3.0 cm = 0.030 m. Then square: (0.030)² = 9.0 × 10⁻⁴ m². Square the centimetres by mistake and you get 9, which is ten thousand times too big.",
+ note:"Reading 3 — the most expensive mistake in the course."},
+{t:"Units",s:"Reading 3",type:"mcq",
+ p:"Which is the smaller amount of charge, 1 nC or 1 µC?",
+ o:[{x:"1 nC, by a factor of a thousand",c:1,f:"Right. Nano is three steps further down than micro."},
+    {x:"1 µC, by a factor of a thousand",f:"The other way round. Micro is 10⁻⁶, nano is 10⁻⁹."},
+    {x:"They are the same",f:"No — they differ by a factor of 1000."},
+    {x:"1 nC, by a factor of a million",f:"Right direction, wrong size. The gap is 1000."}],
+ hint:"10⁻⁹ against 10⁻⁶ — which is further down?",
+ sol:"Nano is 10⁻⁹ and micro is 10⁻⁶, so 1 nC is a thousand times smaller. Working down: milli, micro, nano, each a thousand times smaller than the last.",
+ note:"Reading 3."},
+{t:"Units",s:"Reading 3",type:"mcq",
+ p:"When should you convert quantities into metres and coulombs?",
+ o:[{x:"Before putting any numbers into the formula",c:1,f:"Right. Make it a fixed habit and a whole class of mistakes disappears."},
+    {x:"After working out the answer",f:"Too late — the wrong numbers have already gone through the formula."},
+    {x:"Only if the question asks you to",f:"The question rarely asks. The formulas assume metres and coulombs regardless."},
+    {x:"Only when the numbers are very small",f:"No — always, whatever the size."}],
+ hint:"Think about where the error creeps in.",
+ sol:"Every formula in this course assumes metres, coulombs and volts. Convert everything first, write the formula, then substitute.",
+ note:"Reading 3."},
+{t:"Charging",s:"Reading 4",type:"mcq",
+ p:"An object becomes charged by rubbing. What has actually happened to the charge?",
+ o:[{x:"New charge was created by the friction",f:"No. Charge is never created or destroyed."},
+    {x:"Electrons were transferred from one material to the other",c:1,f:"Right. Charge is conserved — it is only moved."},
+    {x:"Protons moved from one material to the other",f:"No. Protons sit locked in the nuclei."},
+    {x:"The charge on each object was destroyed",f:"No. Charge in a closed system is conserved."}],
+ hint:"Which particles are free to move?",
+ sol:"The slides put it directly: the total charge in a closed system never changes. In rubbing, electrons move across, so one object becomes as negative as the other becomes positive.",
+ note:"Chapter 16 slides."},
+{t:"Charging",s:"Reading 4",type:"mcq",
+ p:"A positively charged rod is touched to a neutral metal rod. What are the two rods afterwards?",
+ o:[{x:"Both positive",c:1,f:"Right. Electrons move from the neutral rod to the charged one."},
+    {x:"One positive, one negative",f:"That is the result of induction and cutting, not of contact."},
+    {x:"Both neutral",f:"No. The charge is shared, not cancelled."},
+    {x:"Both negative",f:"No. The charged rod was positive."}],
+ hint:"Giancoli: the two objects end up with the same sign of charge.",
+ sol:"This is charging by conduction. Free electrons in the neutral rod are attracted to the positive rod and some pass over. The neutral rod, now missing electrons, is left positive — so both carry the same sign.",
+ img:SVG_COND,
+ note:"Giancoli §16–4."},
+{t:"Charging",s:"Reading 4",type:"mcq",
+ p:"A charged rod is held near a neutral metal rod but never touches it. While the rod is held there, what is the net charge on the metal rod?",
+ o:[{x:"Zero — the charge has only been separated",c:1,f:"Right. No net charge was created; charges merely separated."},
+    {x:"Positive",f:"One end is positive, but the far end is equally negative."},
+    {x:"Negative",f:"One end is negative, but the other end is equally positive."},
+    {x:"It depends how close the rod is held",f:"Distance changes how far the charges shift, not the net total."}],
+ hint:"Nothing has entered or left the metal rod.",
+ sol:"Electrons shift toward the positive rod, leaving the far end positive. Nothing entered or left, so the net charge is still zero. Cut the rod at this moment and you get two charged pieces.",
+ img:SVG_IND,
+ note:"Giancoli §16–4."},
+{t:"Charging",s:"Going deeper",type:"mcq",
+ p:"You charge a metal sphere by induction using an earth wire. In which order must you do the last two steps?",
+ o:[{x:"Cut the earth wire first, then remove the charged rod",c:1,f:"Right. Breaking the earth path first traps the charge."},
+    {x:"Remove the charged rod first, then cut the earth wire",f:"Then the electrons flow back and the sphere ends up neutral."},
+    {x:"The order makes no difference",f:"It makes all the difference."},
+    {x:"Both at exactly the same moment",f:"Not needed. Cutting the wire first is enough."}],
+ hint:"What drives the electrons away, and what happens when you remove it?",
+ sol:"The charged rod drives electrons into the Earth. Cut the wire while the rod is still there and the charge cannot come back. Remove the rod first and the electrons simply return.",
+ note:"Giancoli §16–4."},
+{t:"Charging",s:"2012 A1(a) · 6 marks",type:"written",
+ p:"Describe two ways in which an object may be charged. Use sketches or examples to illustrate your answer.",
+ hint:"There are three to choose from: rubbing, conduction, induction. Pick two and sketch each.",
+ model:"<p>Any two of the three below, each with a sketch, earns full marks.</p><p><strong>By rubbing.</strong> Electrons are transferred from one material to the other. Charge is conserved, so one object becomes as negative as the other becomes positive.</p><p><strong>By conduction.</strong> A charged object touches a neutral conductor. Electrons move across until the charge is shared, and both end up with the same sign.</p><p><strong>By induction.</strong> A charged object is brought close but does not touch. Electrons shift within the metal, leaving one end oppositely charged. The net charge is still zero. Cutting it in two, or earthing it and cutting the wire before removing the rod, leaves a charged object.</p>",
+ check:["A clear sketch for each of the two methods","Said what the electrons do in each case","Stated the final charge on each object","For induction: noted the net charge stays zero unless you cut or earth it"],
+ note:"Giancoli §16–4 and the Chapter 16 slides."},
+{t:"EMF",s:"Concept check",type:"mcq",
+ p:"What is the emf of a source defined as?",
+ o:[{x:"The potential difference across its terminals when no current is flowing",c:1,f:"Right — that is the definition in §19–1."},
+    {x:"The force the battery exerts on the charges, in newtons",f:"No. Electromotive force is a misnomer — not a force, not newtons."},
+    {x:"The current the battery can deliver",f:"No. The current depends on the circuit."},
+    {x:"The potential difference across its terminals while it is driving a circuit",f:"That is the terminal voltage, which is lower than the emf."}],
+ hint:"The clue is in what the circuit is doing — or not doing.",
+ sol:"A source of emf transforms chemical, mechanical or light energy into electrical energy. Its emf, written ℰ and measured in volts, is the potential difference between its terminals when no current flows.",
+ note:"Giancoli §19–1."},
+{t:"EMF",s:"Concept check",type:"mcq",
+ p:"Why is the terminal voltage of a real battery less than its emf when it is driving a circuit?",
+ o:[{x:"Because the battery has internal resistance, causing a voltage drop Ir inside it",c:1,f:"Right. That is why V = ℰ − Ir."},
+    {x:"Because some charge leaks away into the air",f:"No. The loss is a voltage drop inside the battery."},
+    {x:"Because the emf falls as the battery is used",f:"True of an ageing battery, but not why the voltage sags the moment current flows."},
+    {x:"Because the wires have resistance",f:"Wire resistance drops voltage in the circuit, not between the terminals."}],
+ hint:"Something inside the battery resists the flow of charge too.",
+ sol:"Charge must move through the electrolyte, which has resistance r. With current I there is a drop Ir inside the battery, so V = ℰ − Ir. This is why headlights dim when the starter draws a large current.",
+ img:SVG_EMF,
+ note:"Giancoli §19–1."},
+{t:"EMF",s:"Calculation",type:"num",
+ p:"A 12 V battery has an internal resistance of 0.1 Ω. When 10 A flows from it, what is its terminal voltage?",
+ a:11,tol:0.03,u:"V",
+ hint:"Use V = ℰ − Ir.",
+ sol:"V = 12 − (10)(0.1) = 11 V. The internal resistance is small, but a large current makes even 0.1 Ω cost a whole volt.",
+ note:"Giancoli §19–1."},
+{t:"EMF",s:"2012 A1(b)(i) · 2 marks",type:"written",
+ p:"Explain in detail the meaning of electromotive force (EMF) as applied to electric currents in circuits.",
+ hint:"Say what the source does energetically, then give the precise definition and the unit.",
+ model:"<p>A device that transforms another form of energy — chemical, mechanical or light — into electrical energy is called a source of electromotive force, or emf.</p><p>The emf, written ℰ, is the potential difference between the terminals when no current is flowing. Its unit is the volt.</p><p>Despite the name it is not a force and is not measured in newtons — Giancoli calls the term a misnomer.</p><p>Every real source has internal resistance r, so with current I the terminal voltage is V = ℰ − Ir.</p>",
+ check:["Said the source converts other energy into electrical energy","Defined emf as the terminal p.d. with no current flowing","Gave the unit as the volt","Mentioned internal resistance or V = ℰ − Ir"],
+ note:"Giancoli §19–1."},
+{t:"Thermistor",s:"Concept check",type:"mcq",
+ p:"What is a thermistor made of?",
+ o:[{x:"A metal oxide or a semiconductor",c:1,f:"Right — that is Giancoli's wording exactly."},
+    {x:"Pure platinum wire",f:"That is a platinum resistance thermometer."},
+    {x:"Two dissimilar metals joined at a junction",f:"That is a thermocouple."},
+    {x:"A coil of copper wire",f:"No. A plain metal coil is far less sensitive."}],
+ hint:"It is not an ordinary metal.",
+ sol:"A thermistor consists of a metal oxide or semiconductor whose resistance varies in a repeatable way with temperature. They can be made very small and respond very quickly.",
+ note:"Giancoli §18–4."},
+{t:"Thermistor",s:"Concept check",type:"mcq",
+ p:"For a semiconductor thermistor, what happens to its resistance as the temperature rises?",
+ o:[{x:"It decreases, because more electrons become free to carry current",c:1,f:"Right. The temperature coefficient is negative for semiconductors."},
+    {x:"It increases, because the atoms vibrate more",f:"That is what happens in a metal."},
+    {x:"It stays the same",f:"No — then it would be useless as a sensor."},
+    {x:"It increases, then decreases",f:"No. Over its working range it falls steadily."}],
+ hint:"Why can the temperature coefficient be negative for a semiconductor?",
+ sol:"Resistivity varies as ρ = ρ₀[1 + α(T − T₀)]. For a metal α is positive. For a semiconductor α can be negative, because at higher temperatures some bound electrons become free. More carriers means less resistance.",
+ note:"Giancoli §18–4."},
+{t:"Thermistor",s:"2012 A1(b)(ii) · 2 marks",type:"written",
+ p:"Explain in detail the meaning of the device called a thermistor.",
+ hint:"Name what it is made of, say what its resistance does, and say what it is used for.",
+ model:"<p>A thermistor is a resistor made of a metal oxide or semiconductor whose resistance varies strongly and repeatably with temperature.</p><p>Resistivity depends on temperature as ρ = ρ₀[1 + α(T − T₀)]. For a semiconductor α can be negative, so the resistance falls sharply as temperature rises — unlike a metal, whose resistance creeps up.</p><p>Because they are small and respond very quickly, thermistors are used as temperature sensors and in resistance thermometers.</p>",
+ check:["Said it is a metal oxide or semiconductor","Said its resistance varies with temperature repeatably","Noted the change is large, or that semiconductors have negative α","Gave a use — temperature sensing or measurement"],
+ note:"Giancoli §18–4."},
+{t:"Earthing",s:"Concept check",type:"mcq",
+ p:"In electrostatics, why can the Earth be used to charge or discharge an object?",
+ o:[{x:"It is so large and conducting that it freely accepts or gives up electrons",c:1,f:"Right — a reservoir for charge."},
+    {x:"It is a perfect insulator, so charge cannot escape it",f:"The opposite. The Earth conducts."},
+    {x:"It carries a large positive charge that attracts electrons",f:"No. Its usefulness comes from size and conductivity."},
+    {x:"It is at exactly zero volts by definition",f:"That is a convention, not the physical reason."}],
+ hint:"Think of it as somewhere charge can go without anything changing.",
+ sol:"The Earth, because it is so large and can conduct, easily accepts or gives up electrons, so it acts like a reservoir for charge. Connecting an object to it with a conductor is earthing.",
+ note:"Giancoli §16–4."},
+{t:"Earthing",s:"Concept check",type:"mcq",
+ p:"A live wire inside an appliance comes loose and touches its metal case. The case is earthed by the third prong of the plug. What happens?",
+ o:[{x:"A large current flows through the low-resistance earth wire and blows the fuse",c:1,f:"Right — the current bypasses the person and the surge cuts the supply."},
+    {x:"Nothing happens until somebody touches the case",f:"No. The short to earth happens immediately."},
+    {x:"The case becomes live and anyone touching it gets a shock",f:"That is what happens when the case is NOT earthed."},
+    {x:"The earth wire stores the charge until the appliance is unplugged",f:"It carries current away; it does not store anything."}],
+ hint:"Compare the resistance of the earth wire with that of a human body.",
+ sol:"A short circuit to earth occurs internally, and most of the current passes through the low-resistance ground wire rather than through the person. The high current then opens a fuse or circuit breaker.",
+ note:"Giancoli §19–7."},
+{t:"Earthing",s:"2012 A1(b)(iii) · 2 marks",type:"written",
+ p:"Explain in detail the meaning of earthing as applied to electric currents in circuits.",
+ hint:"Define it, then say what it does for safety — there are two separate protections.",
+ model:"<p>Earthing, or grounding, means connecting a conductor to the Earth by a conducting wire. The Earth is so large and conducts so well that it freely accepts or gives up electrons, acting as a reservoir for charge.</p><p>In circuits, the metal case of an appliance is connected to earth by a separate wire — the third, round prong of a three-prong plug.</p><p>If a live wire touches the case, a short circuit to earth occurs. Because the earth wire has very low resistance, most of the current passes through it rather than through a person. The large current then blows the fuse or trips the breaker.</p><p>This is why the third prong must never be cut off a plug.</p>",
+ check:["Defined earthing as connecting to the Earth by a conductor","Said why the Earth works — large, conducting, a charge reservoir","Explained that fault current takes the low-resistance path instead of the person","Mentioned that the large current blows the fuse or trips the breaker"],
+ note:"Giancoli §16–4 and §19–7."},
+{t:"Review",s:"Exam technique",type:"mcq",
+ p:"Part (b) of this question is worth 6 marks for three terms. Roughly how much should you write for each?",
+ o:[{x:"Two solid points each — a definition and something that shows you understand it",c:1,f:"Right. Two marks means two scoring points."},
+    {x:"One short sentence each",f:"Too thin for two marks."},
+    {x:"A full page each",f:"Far too much. You would run out of time."},
+    {x:"Only the formula",f:"Two of the three terms have no formula at all."}],
+ hint:"Count the marks, then count the points you are making.",
+ sol:"Six marks across three terms is two marks each: the definition, plus one thing that shows understanding — the unit, a formula, a consequence or an example.",
+ note:"The question says explain, not derive."}
+];
+
+var GP=[
+{id:"Guided problem 1",src:"Nov 2024, A1",
+ title:"Field between two opposite charges",
+ prompt:"Find the electric field midway between Q₁ = +5.8 µC and Q₂ = −8.0 µC, which are 6.0 cm apart.",
+ fig:FIG_LINE,
+ steps:[
+ {type:"num",q:"The charges are 6.0 cm apart and P is exactly midway. How far is each charge from P, in metres?",
+  a:0.030,tol:0.02,u:"m",hint:"Half of 6.0 cm is 3.0 cm. Now put that in metres.",
+  line:"Each charge is <b>0.030 m</b> from P",
+  sol:"Half of 6.0 cm is 3.0 cm, and 3.0 cm = 0.030 m."},
+ {type:"num",q:"What is r², in square metres?",
+  a:9.0e-4,tol:0.02,u:"m²",hint:"Square the 0.030 m from step 1. Not the 3.0 cm.",
+  line:"r² = <b>9.0 × 10⁻⁴ m²</b>",
+  sol:"(0.030)² = 9.0 × 10⁻⁴ m²."},
+ {type:"num",q:"Using E = kQ/r², what field does Q₁ alone produce at P?",
+  a:5.8e7,tol:0.02,u:"N/C",hint:"k = 9.0 × 10⁹ and Q = 5.8 × 10⁻⁶ C. You already have r².",
+  line:"E₁ = <b>5.8 × 10⁷ N/C</b>",
+  sol:"E₁ = (9.0 × 10⁹)(5.8 × 10⁻⁶) / (9.0 × 10⁻⁴) = 5.8 × 10⁷ N/C."},
+ {type:"num",q:"And the field from Q₂ alone?",
+  a:8.0e7,tol:0.02,u:"N/C",hint:"Same r², bigger charge. Use the size 8.0 µC — ignore the minus sign.",
+  line:"E₂ = <b>8.0 × 10⁷ N/C</b>",
+  sol:"E₂ = (9.0 × 10⁹)(8.0 × 10⁻⁶) / (9.0 × 10⁻⁴) = 8.0 × 10⁷ N/C. The minus sign on Q₂ is not used here — it decides the direction instead."},
+ {type:"mcq",q:"Q₁ is positive and Q₂ is negative. At P, which way does each field point?",
+  o:[{x:"Both from Q₁ toward Q₂ — away from the positive, toward the negative. They add.",c:1,f:"Right."},
+     {x:"Both from Q₂ toward Q₁. They add.",f:"Wrong way round. Fields point away from positive charges and toward negative ones."},
+     {x:"In opposite directions, so they subtract.",f:"That happens with two like charges. Here one is positive and one negative, so both arrows point the same way."},
+     {x:"At right angles to each other.",f:"No — P is on the line joining them, so both fields lie along that line."}],
+  hint:"Draw both arrows at P. Away from the + charge. Toward the − charge. Do they agree?",
+  line:"Both fields point the same way — so they <b>add</b>",
+  sol:"Away from the positive and toward the negative are the same direction here, so the two fields reinforce."},
+ {type:"num",q:"So what is the total field at P?",
+  a:1.38e8,tol:0.03,u:"N/C",hint:"Add your answers from steps 3 and 4.",
+  line:"E = <b>1.4 × 10⁸ N/C</b>, from Q₁ toward Q₂",
+  sol:"E = 5.8 × 10⁷ + 8.0 × 10⁷ = 1.38 × 10⁸ ≈ 1.4 × 10⁸ N/C."}],
+ final:"<p>r = 0.030 m, so r² = 9.0 × 10⁻⁴ m².</p><p>E₁ = kQ₁/r² = 5.8 × 10⁷ N/C, away from Q₁.<br>E₂ = kQ₂/r² = 8.0 × 10⁷ N/C, toward Q₂.</p><p>Both point from Q₁ toward Q₂, so they add:</p><p><b>E = 1.4 × 10⁸ N/C, directed from Q₁ toward Q₂.</b></p><p>That is the full answer to 2024 A1 — option (b) on the paper.</p>"},
+
+{id:"Guided problem 2",src:"Nov 2024, B1",
+ title:"Two like charges, and where the field vanishes",
+ prompt:"Charges Q₁ = +12 nC and Q₂ = +3 nC are 0.18 m apart. Find the field midway between them, then find the point where the field is zero.",
+ fig:FIG_LIKE,
+ steps:[
+ {type:"num",q:"How far is each charge from the midpoint, in metres?",
+  a:0.09,tol:0.02,u:"m",hint:"Half of 0.18 m.",
+  line:"Each charge is <b>0.09 m</b> from the midpoint",
+  sol:"Half of 0.18 m is 0.09 m. This one is already in metres — no conversion needed."},
+ {type:"num",q:"What field does the 12 nC charge produce at the midpoint?",
+  a:1.333e4,tol:0.03,u:"N/C",hint:"r² = (0.09)² = 8.1 × 10⁻³ m², and Q = 12 × 10⁻⁹ C.",
+  line:"E₁ = <b>1.33 × 10⁴ N/C</b>",
+  sol:"E₁ = (9.0 × 10⁹)(12 × 10⁻⁹) / (8.1 × 10⁻³) = 1.33 × 10⁴ N/C."},
+ {type:"num",q:"And from the 3 nC charge?",
+  a:3.333e3,tol:0.03,u:"N/C",hint:"Same distance, a quarter of the charge — so a quarter of the field.",
+  line:"E₂ = <b>3.33 × 10³ N/C</b>",
+  sol:"E₂ = (9.0 × 10⁹)(3 × 10⁻⁹) / (8.1 × 10⁻³) = 3.33 × 10³ N/C — exactly a quarter of E₁, as it must be."},
+ {type:"mcq",q:"Both charges are positive. At the midpoint, which way does each field point?",
+  o:[{x:"In opposite directions — each points away from its own charge, so they subtract",c:1,f:"Right. Like charges fight each other in the gap."},
+     {x:"Both toward Q₂ — they add",f:"No. Each field points away from its own charge, so between two positives they oppose."},
+     {x:"Both toward Q₁ — they add",f:"No. Each field points away from its own charge, so between two positives they oppose."},
+     {x:"They cancel exactly",f:"They would only cancel exactly if the charges were equal. These are 12 nC and 3 nC."}],
+  hint:"Field points away from a positive charge. Draw both arrows at the midpoint.",
+  line:"Both positive — the fields oppose, so they <b>subtract</b>",
+  sol:"Each field points away from its own charge. Between two positives that means they point at each other, so you take the difference."},
+ {type:"num",q:"What is the net field at the midpoint?",
+  a:1.0e4,tol:0.03,u:"N/C",hint:"Subtract the smaller from the bigger.",
+  line:"E = <b>1.0 × 10⁴ N/C</b>, from Q₁ toward Q₂",
+  sol:"1.33 × 10⁴ − 3.33 × 10³ = 1.0 × 10⁴ N/C, pointing the way the stronger field does — away from the 12 nC charge."},
+ {type:"mcq",q:"Now for the point where the field is zero. If x is the distance from Q₁, what must be true there?",
+  o:[{x:"The two field sizes are equal: kQ₁/x² = kQ₂/(0.18 − x)²",c:1,f:"Right. Equal and opposite means the sizes match."},
+     {x:"The two charges must be equal",f:"They are not, and they do not need to be — the point just sits off-centre."},
+     {x:"x must be exactly half of 0.18 m",f:"Only if the charges were equal. The bigger charge pushes the null point further away."},
+     {x:"The point must lie outside the two charges",f:"For two like charges the null point is always between them."}],
+  hint:"The fields already point in opposite directions. What else is needed for them to cancel?",
+  line:"Set the sizes equal: kQ₁/x² = kQ₂/(0.18 − x)²",
+  sol:"They already point opposite ways. For the sum to be zero they must also be equal in size."},
+ {type:"num",q:"Solve it. How far from Q₁ is the field zero, in metres?",
+  a:0.12,tol:0.03,u:"m",hint:"Cancel k. Take the square root of both sides: √12 / x = √3 / (0.18 − x). Then solve.",
+  line:"x = <b>0.12 m</b> from Q₁",
+  sol:"√12/x = √3/(0.18 − x) gives 2(0.18 − x) = x, so 0.36 = 3x and x = 0.12 m. That is 0.06 m from Q₂ — closer to the smaller charge, as it should be."}],
+ final:"<p>(a) Each charge is 0.09 m from the midpoint. E₁ = 1.33 × 10⁴ N/C and E₂ = 3.33 × 10³ N/C.</p><p>(b) Both charges are positive, so the fields oppose: <b>E = 1.0 × 10⁴ N/C</b>, directed from Q₁ toward Q₂.</p><p>(c) Setting kQ₁/x² = kQ₂/(0.18 − x)² and square-rooting gives <b>x = 0.12 m from Q₁</b>.</p><p>Check: the null point sits closer to the weaker charge, and the distances are in the ratio √(12/3) = 2. That is 2024 B1, all three parts.</p>"},
+
+{id:"Guided problem 3",src:"Nov 2013, A1(b)",
+ title:"Four charges on a square",
+ prompt:"Charges +2q, −4q, +4q and −2q sit successively at the corners of a square of side a = 10 cm, with q = 8 nC. Find the horizontal and vertical components of the field at the centre.",
+ fig:FIG_SQ,
+ steps:[
+ {type:"num",q:"How far is each corner from the centre of the square, in metres?",
+  a:0.0707,tol:0.03,u:"m",hint:"Half the diagonal. The diagonal of a square of side a is a√2, so half of it is a/√2.",
+  line:"Corner to centre: <b>0.0707 m</b>",
+  sol:"a/√2 = 0.10/1.414 = 0.0707 m."},
+ {type:"num",q:"What is r², in square metres?",
+  a:5.0e-3,tol:0.03,u:"m²",hint:"Square it — or notice that (a/√2)² is just a²/2.",
+  line:"r² = <b>5.0 × 10⁻³ m²</b>",
+  sol:"(0.0707)² = 5.0 × 10⁻³ m². The shortcut: r² = a²/2 = 0.01/2."},
+ {type:"num",q:"A 2q charge is 2 × 8 nC = 16 nC. What field does it produce at the centre?",
+  a:2.88e4,tol:0.03,u:"N/C",hint:"E = kQ/r² with Q = 16 × 10⁻⁹ C.",
+  line:"Each 2q charge gives <b>2.88 × 10⁴ N/C</b>",
+  sol:"E = (9.0 × 10⁹)(16 × 10⁻⁹) / (5.0 × 10⁻³) = 2.88 × 10⁴ N/C."},
+ {type:"num",q:"And a 4q charge, which is 32 nC?",
+  a:5.76e4,tol:0.03,u:"N/C",hint:"Twice the charge, same distance — so twice the field.",
+  line:"Each 4q charge gives <b>5.76 × 10⁴ N/C</b>",
+  sol:"Twice the charge gives twice the field: 5.76 × 10⁴ N/C."},
+ {type:"mcq",q:"Each of these fields lies along a diagonal of the square. What angle does a diagonal make with the horizontal?",
+  o:[{x:"45°",c:1,f:"Right — and that is what makes the across and up parts equal."},
+     {x:"30°",f:"That is the triangle case. A square's diagonal cuts its right angle in half."},
+     {x:"60°",f:"No. A square's diagonal cuts the 90° corner into two equal halves."},
+     {x:"90°",f:"That would be straight up, which is along a side, not a diagonal."}],
+  hint:"The diagonal cuts the corner of the square exactly in half. What is half of 90°?",
+  line:"Every field lies at <b>45°</b> to the horizontal",
+  sol:"The diagonal bisects the 90° corner, so it sits at 45°. At 45° the across and up parts of a field are equal, each being E/√2."},
+ {type:"num",q:"At 45°, what is the across part of the 2.88 × 10⁴ field?",
+  a:2.036e4,tol:0.03,u:"N/C",hint:"Divide by √2, or multiply by 0.71.",
+  line:"2.88 × 10⁴ splits into <b>2.04 × 10⁴</b> across and the same up",
+  sol:"2.88 × 10⁴ / √2 = 2.04 × 10⁴ N/C. The 5.76 × 10⁴ field splits the same way into 4.07 × 10⁴ each."},
+ {type:"num",q:"Now add the four across parts: +2.04, +4.07, −4.07, −2.04 (×10⁴). What is the horizontal component?",
+  a:0,tol:0.02,u:"N/C",hint:"Look at the four numbers. What do they do?",
+  line:"Horizontal component = <b>0</b>",
+  sol:"They cancel in pairs: the two 4.07s cancel, the two 2.04s cancel. The horizontal component is exactly zero — which is why this part is worth only 3 marks."},
+ {type:"num",q:"And the four up parts: −2.04, +4.07, +4.07, −2.04 (×10⁴). What is the vertical component?",
+  a:4.07e4,tol:0.03,u:"N/C",hint:"Add the two positives, subtract the two negatives.",
+  line:"Vertical component = <b>4.07 × 10⁴ N/C</b>",
+  sol:"8.14 × 10⁴ − 4.07 × 10⁴ = 4.07 × 10⁴ N/C, pointing up. Quick check: pairing the diagonals gives two equal fields of 2.88 × 10⁴ at right angles, and 2.88 × √2 = 4.07."}],
+ final:"<p>r = a/√2 = 0.0707 m, so r² = 5.0 × 10⁻³ m².</p><p>E from a 2q charge = 2.88 × 10⁴ N/C; from a 4q charge = 5.76 × 10⁴ N/C.</p><p>Every field lies at 45°, so each splits into equal parts of 2.04 × 10⁴ and 4.07 × 10⁴.</p><p><b>Horizontal component = 0.</b><br><b>Vertical component = 4.07 × 10⁴ N/C.</b></p><p>One warning for the exam: which component comes out zero depends on how you draw and label the square. Draw it first, label your corners, and the examiner marks against your own diagram.</p>"},
+
+{id:"Guided problem 4",src:"Nov 2012, A2(a)",
+ title:"Equilateral triangle of charges",
+ prompt:"Three equal positive charges q = 5.0 nC sit at the corners of an equilateral triangle of side a = 20 cm. Find the field at the apex P due to the two charges at the base.",
+ fig:FIG_TRI,
+ steps:[
+ {type:"mcq",q:"How far is each base charge from P?",
+  o:[{x:"a, the side of the triangle — 0.20 m",c:1,f:"Right. In an equilateral triangle every corner is a distance a from every other."},
+     {x:"a/2 — 0.10 m",f:"That is half the base, not the distance up to the apex."},
+     {x:"a/√2 — 0.14 m",f:"That is the square result. This is a triangle."},
+     {x:"a√3/2 — 0.17 m",f:"That is the height of the triangle, not the length of a side."}],
+  hint:"Look at the diagram. What is the length of each side?",
+  line:"Each base charge is <b>0.20 m</b> from P",
+  sol:"Every side of an equilateral triangle is the same length, so each base charge is a distance a = 0.20 m from the apex. No square roots needed."},
+ {type:"num",q:"What field does one base charge produce at P?",
+  a:1125,tol:0.03,u:"N/C",hint:"r² = (0.20)² = 0.040 m² and Q = 5.0 × 10⁻⁹ C.",
+  line:"Each base charge gives <b>1125 N/C</b>",
+  sol:"E = (9.0 × 10⁹)(5.0 × 10⁻⁹) / 0.040 = 1125 N/C."},
+ {type:"mcq",q:"Each field points along the line from its charge up to P. What angle does that line make with the vertical through P?",
+  o:[{x:"30°",c:1,f:"Right. The sides sit at 60° to the base, so 30° from the vertical."},
+     {x:"45°",f:"That is the square case."},
+     {x:"60°",f:"That is the angle with the base, not with the vertical. The two add to 90°."},
+     {x:"90°",f:"That would mean the fields are horizontal, which they are not."}],
+  hint:"Every angle in an equilateral triangle is 60°. The vertical is 90° from the base.",
+  line:"Each field sits at <b>30°</b> to the vertical",
+  sol:"The sides make 60° with the base, so they make 90° − 60° = 30° with the vertical."},
+ {type:"mcq",q:"The two fields lean away from the vertical by 30°, one to each side. What happens to their sideways parts?",
+  o:[{x:"They are equal and opposite, so they cancel",c:1,f:"Right — the arrangement is symmetric about the vertical."},
+     {x:"They add together",f:"No. One leans left and one leans right, by the same amount."},
+     {x:"One is twice the other",f:"No. The two charges are equal and equally far away."},
+     {x:"They point in the same direction",f:"No — the two charges sit on opposite sides of the vertical."}],
+  hint:"The picture is a mirror image about the vertical line through P.",
+  line:"The sideways parts <b>cancel</b> — only the upward parts survive",
+  sol:"The arrangement is symmetric about the vertical through P, so the field there cannot lean left or right."},
+ {type:"num",q:"What is the upward part of each field?",
+  a:974.3,tol:0.03,u:"N/C",hint:"The angle is measured from the vertical, so the upward part is E cos 30°.",
+  line:"Upward part of each: <b>974 N/C</b>",
+  sol:"1125 × cos 30° = 1125 × 0.866 = 974 N/C. Because the angle is from the vertical, the upward part takes the cosine."},
+ {type:"num",q:"So what is the total field at P?",
+  a:1949,tol:0.03,u:"N/C",hint:"Two equal upward parts, added together.",
+  line:"E = <b>1.95 × 10³ N/C</b>, straight up",
+  sol:"2 × 974 = 1949 ≈ 1.95 × 10³ N/C, directed straight up the perpendicular bisector of the base, away from the triangle."}],
+ final:"<p>Each base charge is a distance a = 0.20 m from P, so each produces E = kq/a² = 1125 N/C.</p><p>Each field sits at 30° to the vertical. The sideways parts cancel by symmetry; the upward parts add:</p><p>E = 2(kq/a²)cos 30° = <b>1.95 × 10³ N/C, directed straight up.</b></p><p>In symbols, which is how the exam asks it: <b>E = √3 kq/a²</b>, along the perpendicular bisector of the base, pointing away from it.</p>"}
+];
+
+var FIG_PLATES='<svg viewBox="0 0 440 230" role="img" aria-label="A charged sphere on a thread hanging at forty-five degrees between two oppositely charged vertical plates fifty millimetres apart."><rect x="70" y="30" width="11" height="150" class="sp"/><rect x="359" y="30" width="11" height="150" class="sn"/><text x="75" y="22" font-size="13" text-anchor="middle" class="tp">+</text><text x="365" y="22" font-size="13" text-anchor="middle" class="tn">&minus;</text><g class="ln" stroke-width="1"><path d="M88 58L348 58"/><path d="M348 58L340 54M348 58L340 62"/><path d="M88 150L348 150"/><path d="M348 150L340 146M348 150L340 154"/></g><line x1="175" y1="40" x2="245" y2="40" class="ln" stroke-width="2.5"/><line x1="210" y1="40" x2="210" y2="150" class="ln" stroke-width="0.75" stroke-dasharray="5 4" opacity=".5"/><line x1="210" y1="40" x2="272" y2="102" class="ln" stroke-width="1.5"/><circle cx="279" cy="109" r="13" class="sp"/><text x="279" y="114" font-size="11" text-anchor="middle" class="tp">q</text><path d="M210 92A52 52 0 0 0 227 80" fill="none" stroke="var(--neg-line)" stroke-width="1.5"/><text x="222" y="106" font-size="11" class="t2">45&deg;</text><path d="M75 198L365 198" class="ln" stroke-width="1"/><path d="M75 192L75 204M365 192L365 204" class="ln" stroke-width="1"/><text x="220" y="219" font-size="12" text-anchor="middle" class="t2">50 mm</text><text x="300" y="138" font-size="12" class="t2">m = 0.4 g</text><text x="300" y="156" font-size="12" class="t2">V = 5 kV</text></svg>';
+
+var FIG_BALL='<svg viewBox="0 0 440 230" role="img" aria-label="A two gram ball on a twenty centimetre string hanging at fifteen degrees in a uniform field of one thousand newtons per coulomb."><line x1="140" y1="26" x2="280" y2="26" class="ln" stroke-width="3"/><line x1="210" y1="26" x2="210" y2="190" class="ln" stroke-width="0.75" stroke-dasharray="5 4" opacity=".5"/><line x1="210" y1="26" x2="254" y2="190" class="ln" stroke-width="1.5"/><circle cx="257" cy="200" r="14" class="su"/><path d="M210 140A114 114 0 0 0 240 136" fill="none" stroke="var(--neg-line)" stroke-width="1.5"/><text x="214" y="160" font-size="11" class="t2">15.0&deg;</text><text x="244" y="112" font-size="12" class="t2">20.0 cm</text><text x="257" y="226" font-size="12" text-anchor="middle" class="t2">m = 2.00 g</text><g class="ln" stroke-width="1"><path d="M40 62L170 62"/><path d="M170 62L162 58M170 62L162 66"/><path d="M40 104L170 104"/><path d="M170 104L162 100M170 104L162 108"/><path d="M40 146L170 146"/><path d="M170 146L162 142M170 146L162 150"/><path d="M300 62L408 62"/><path d="M408 62L400 58M408 62L400 66"/><path d="M300 104L408 104"/><path d="M408 104L400 100M408 104L400 108"/></g><text x="352" y="150" font-size="12" text-anchor="middle" class="t2">E = 1.00 &times; 10&sup3; N/C</text></svg>';
+
+var FIG_GAUSS='<svg viewBox="0 0 440 230" role="img" aria-label="A point charge at the centre of a dashed spherical Gaussian surface with radial field arrows passing through it."><circle cx="220" cy="112" r="80" class="ln" stroke-width="1.25" fill="none" stroke-dasharray="7 5"/><ellipse cx="220" cy="112" rx="80" ry="24" class="ln" stroke-width="0.6" fill="none" opacity=".4"/><circle cx="220" cy="112" r="16" class="sp"/><text x="220" y="117" font-size="12" text-anchor="middle" class="tp">+Q</text><g class="ln" stroke-width="1.4"><path d="M220 96L220 54"/><path d="M220 54L215 63M220 54L225 63"/><path d="M220 128L220 170"/><path d="M220 170L215 161M220 170L225 161"/><path d="M236 112L278 112"/><path d="M278 112L269 107M278 112L269 117"/><path d="M204 112L162 112"/><path d="M162 112L171 107M162 112L171 117"/><path d="M232 100L262 70"/><path d="M262 70L251 72M262 70L260 83"/><path d="M208 124L178 154"/><path d="M178 154L189 152M178 154L180 141"/><path d="M232 124L262 154"/><path d="M262 154L260 141M262 154L251 152"/><path d="M208 100L178 70"/><path d="M178 70L180 83M178 70L189 72"/></g><line x1="220" y1="112" x2="163" y2="55" stroke="var(--neg-line)" stroke-width="2"/><text x="178" y="94" font-size="12" font-weight="500" class="tn">r</text><text x="316" y="62" font-size="12" class="t2">sphere of radius r</text><text x="316" y="80" font-size="12" class="t2">area 4&pi;r&sup2;</text></svg>';
+
+var GP3=[
+{id:"Guided problem 5",src:"Nov 2012, A2(c) · 10 marks",
+ title:"Charged sphere between two plates",
+ prompt:"A small charged sphere of mass 0.4 g hangs by a thread between two oppositely charged vertical plates 50 mm apart. Find the charge on the sphere if a potential difference of 5 kV makes the thread sit at 45° to the vertical.",
+ fig:FIG_PLATES,
+ steps:[
+ {type:"mcq",q:"Before any numbers. Three forces act on the sphere and it is not moving. What are they?",
+  o:[{x:"Weight straight down, the electric force sideways, and the tension along the thread",c:1,f:"Right — and because it hangs still, the three must cancel."},
+     {x:"Weight down and the electric force sideways only",f:"Something has to hold the sphere up against both of those — the thread. Its tension is a force too."},
+     {x:"The electric force and the tension only",f:"Everything with mass has weight. The sphere's weight pulls it down."},
+     {x:"Weight down, tension up, and friction sideways",f:"There is nothing for the sphere to rub against. The sideways force is electric."}],
+  hint:"One from gravity, one from the field, one from the thread.",
+  line:"Three forces: <b>weight mg</b> down, <b>qE</b> sideways, <b>tension T</b> along the thread",
+  sol:"Weight mg acts straight down, the field pushes the charge sideways with force qE, and the thread pulls along its own length with tension T. The sphere hangs still, so all three balance."},
+ {type:"num",q:"Convert the mass to kilograms.",
+  a:4.0e-4,tol:0.02,u:"kg",hint:"0.4 g. Divide by 1000. Enter it as 4e-4.",
+  line:"m = <b>4.0 × 10⁻⁴ kg</b>",
+  sol:"0.4 g ÷ 1000 = 4.0 × 10⁻⁴ kg."},
+ {type:"num",q:"Convert the plate separation to metres.",
+  a:0.050,tol:0.02,u:"m",hint:"50 mm. Divide by 1000.",
+  line:"d = <b>0.050 m</b>",
+  sol:"50 mm ÷ 1000 = 0.050 m."},
+ {type:"num",q:"The potential difference is 5 kV. Using E = V/d, what is the field between the plates?",
+  a:1.0e5,tol:0.02,u:"N/C",hint:"First turn 5 kV into volts: 5000 V. Then divide by the 0.050 m from step 3.",
+  line:"E = V/d = <b>1.0 × 10⁵ N/C</b>",
+  sol:"E = 5000 / 0.050 = 1.0 × 10⁵ N/C. No kQ/r² here — plates give a uniform field, and V/d is all you need."},
+ {type:"num",q:"Now the weight of the sphere. Take g = 9.8 m/s².",
+  a:3.92e-3,tol:0.02,u:"N",hint:"Weight = mg. Multiply your 4.0 × 10⁻⁴ kg by 9.8.",
+  line:"mg = <b>3.92 × 10⁻³ N</b>",
+  sol:"mg = (4.0 × 10⁻⁴)(9.8) = 3.92 × 10⁻³ N. Mass is in kilograms; weight is a force in newtons."},
+ {type:"mcq",q:"Resolving the tension gives T cosθ = mg upward and T sinθ = qE sideways. Divide the second by the first. What do you get?",
+  o:[{x:"tan θ = qE / mg — the tension cancels out completely",c:1,f:"Right, and that is why you are never told T."},
+     {x:"tan θ = mg / qE",f:"You divided the wrong way round. sin over cos puts qE on top."},
+     {x:"T = mg + qE",f:"Forces at right angles do not add like that, and dividing does not give a sum."},
+     {x:"cos θ = qE / mg",f:"Dividing sin by cos gives tan, not cos."}],
+  hint:"(T sinθ)/(T cosθ) — what happens to the T, and what is sin over cos?",
+  line:"<b>tan θ = qE / mg</b>, so q = mg tan θ / E",
+  sol:"The T on top and bottom cancel, and sinθ/cosθ = tanθ. The tension never appears in the answer — which is lucky, because the question never gives it to you."},
+ {type:"num",q:"Finally: q = mg tanθ / E, with θ = 45°. What is the charge?",
+  a:3.92e-8,tol:0.03,u:"C",hint:"tan 45° = 1 exactly, so this is just your step 5 answer divided by your step 4 answer.",
+  line:"q = <b>3.92 × 10⁻⁸ C</b>, about 39 nC",
+  sol:"q = (3.92 × 10⁻³)(1) / (1.0 × 10⁵) = 3.92 × 10⁻⁸ C ≈ 39 nC. The 45° was a gift — it makes tanθ exactly 1."}],
+ final:"<p>m = 0.4 g = 4.0 × 10⁻⁴ kg, d = 50 mm = 0.050 m, V = 5 kV = 5000 V.</p><p>Field between the plates: E = V/d = 5000/0.050 = 1.0 × 10⁵ N/C.</p><p>The sphere is in equilibrium, so resolving the tension:<br>T cos 45° = mg &nbsp;and&nbsp; T sin 45° = qE.</p><p>Dividing: tan 45° = qE/mg, so q = mg tan 45° / E.</p><p>q = (4.0 × 10⁻⁴)(9.8)(1) / (1.0 × 10⁵) = <b>3.9 × 10⁻⁸ C (about 39 nC).</b></p><p>Ten marks, and six of them are in the setup — the conversions, E = V/d, and the statement that the forces balance. Write every one of those lines down even if you fumble the arithmetic.</p>"},
+
+{id:"Guided problem 6",src:"Nov 2013, A2(b) · 5 marks",
+ title:"Ball on a string in a uniform field",
+ prompt:"A 2.00 g charged plastic ball is suspended by a 20.0 cm string in a uniform field E = 1.00 × 10³ N/C. The ball is in equilibrium when the string makes 15.0° with the vertical. What is the net charge on the ball?",
+ fig:FIG_BALL,
+ steps:[
+ {type:"mcq",q:"The question gives you a 20.0 cm string. Where does that length go in the calculation?",
+  o:[{x:"Nowhere — it is not needed to find the charge",c:1,f:"Right. It would only matter if you were asked how far sideways the ball moved."},
+     {x:"It is the r in E = kQ/r²",f:"There is no point charge making this field — it is uniform and already given to you."},
+     {x:"You multiply the weight by it",f:"That would give a turning moment, which this question never asks for."},
+     {x:"It replaces the angle",f:"No — the angle is given separately and is what you actually use."}],
+  hint:"Look at q = mg tanθ / E. Is there a length in it anywhere?",
+  line:"The 20.0 cm string is <b>not needed</b> — a deliberate spare number",
+  sol:"q = mg tanθ/E contains no length at all. The string length would only matter if the question asked how far the ball swung sideways. Spare numbers are there to test whether you know what you need."},
+ {type:"num",q:"Convert the mass to kilograms.",
+  a:2.00e-3,tol:0.02,u:"kg",hint:"2.00 g. Divide by 1000.",
+  line:"m = <b>2.00 × 10⁻³ kg</b>",
+  sol:"2.00 g ÷ 1000 = 2.00 × 10⁻³ kg."},
+ {type:"num",q:"What is the weight of the ball? Take g = 9.8 m/s².",
+  a:1.96e-2,tol:0.02,u:"N",hint:"mg — multiply your answer from step 2 by 9.8.",
+  line:"mg = <b>1.96 × 10⁻² N</b>",
+  sol:"mg = (2.00 × 10⁻³)(9.8) = 1.96 × 10⁻² N."},
+ {type:"num",q:"What is tan 15.0°? Give it to three decimal places.",
+  a:0.268,tol:0.03,u:"",hint:"Straight off the calculator — make sure it is in degrees, not radians.",
+  line:"tan 15.0° = <b>0.268</b>",
+  sol:"tan 15.0° = 0.268. If your calculator gives 0.2679 you are in degrees, which is right. If it gives −0.8559 it is in radians — switch it."},
+ {type:"num",q:"Now use q = mg tanθ / E to find the charge.",
+  a:5.25e-6,tol:0.03,u:"C",hint:"Multiply step 3 by step 4, then divide by 1.00 × 10³.",
+  line:"q = <b>5.25 × 10⁻⁶ C</b>, about 5.3 µC",
+  sol:"q = (1.96 × 10⁻²)(0.268) / (1.00 × 10³) = 5.25 × 10⁻⁶ C = 5.25 µC."},
+ {type:"mcq",q:"In the figure the field points to the right, and the ball hangs to the right of vertical. What does that tell you about the sign of the charge?",
+  o:[{x:"It is positive — the force is along the field",c:1,f:"Right. A positive charge is pushed the way the field points."},
+     {x:"It is negative — the force opposes the field",f:"Then the ball would swing to the left, against the arrows."},
+     {x:"You cannot tell from the figure",f:"You can. Which way it leans tells you which way the force acts."},
+     {x:"It must be neutral, since it is in equilibrium",f:"A neutral ball would feel no electric force and would hang straight down."}],
+  hint:"Which way does the field push a positive charge? Now compare with which way the ball leans.",
+  line:"The charge is <b>positive</b> — it leans the way the field points",
+  sol:"The force on a positive charge is along E. The ball leans in the direction of the arrows, so the force on it is along the field, so the charge is positive. The size you calculated, 5.25 µC, is unchanged."}],
+ final:"<p>m = 2.00 g = 2.00 × 10⁻³ kg, so mg = 1.96 × 10⁻² N.</p><p>In equilibrium: T cos 15.0° = mg and T sin 15.0° = qE.</p><p>Dividing: tan 15.0° = qE/mg, so q = mg tan 15.0° / E.</p><p>q = (1.96 × 10⁻²)(0.268) / (1.00 × 10³) = <b>5.25 × 10⁻⁶ C = 5.25 µC, positive.</b></p><p>Same five lines as problem 5, with different numbers and no V/d step. The 20.0 cm string never appeared — and that is correct.</p>"},
+
+{id:"Guided problem 7",src:"Nov 2013, A3 · 8 marks",
+ title:"Gauss's law, and where kQ/r² comes from",
+ prompt:"(a) State Gauss's law. (b) Use Gauss's law to derive an expression for the electric field surrounding a point charge, including a diagram of the Gaussian surface.",
+ fig:FIG_GAUSS,
+ steps:[
+ {type:"mcq",q:"Part (a) first. Which of these is Gauss's law?",
+  o:[{x:"The net electric flux through any closed surface equals the charge enclosed divided by ε₀",c:1,f:"Right — that is the full statement, and it is worth both marks."},
+     {x:"The electric field around a charge falls off as one over the distance squared",f:"True, but that is Coulomb's law — it is what you derive FROM Gauss's law in part (b)."},
+     {x:"The flux through a surface equals the field times the area",f:"Only in the special case where E is constant and perpendicular. Gauss's law is more general."},
+     {x:"Charge can be neither created nor destroyed",f:"That is conservation of charge, a different law."}],
+  hint:"It connects two things: what passes out through a surface, and what sits inside it.",
+  line:"Gauss: <b>Φ = ∮E·dA = Q<sub>enc</sub>/ε₀</b>",
+  sol:"The net flux out through ANY closed surface depends only on the charge enclosed — not on the surface's shape or size, and not on where inside it the charge sits."},
+ {type:"mcq",q:"Now part (b). To derive the field of a point charge, what Gaussian surface do you choose, and why?",
+  o:[{x:"A sphere centred on the charge, because E then has the same size everywhere on it and points straight out through it",c:1,f:"Right — and both of those reasons carry marks."},
+     {x:"A sphere centred on the charge, because spheres are easy to draw",f:"Right shape, wrong reason. The examiner wants the symmetry argument."},
+     {x:"A cube around the charge, because its area is easy to calculate",f:"The field would hit each face at a different angle and size. The integral would not simplify."},
+     {x:"Any surface at all — Gauss's law works for all of them",f:"It is TRUE for all of them, but only a sphere makes the integral solvable."}],
+  hint:"Gauss's law holds for any surface. What makes one surface actually useful?",
+  line:"Choose a <b>sphere centred on the charge</b>: E is constant on it and perpendicular to it",
+  sol:"Gauss's law is true for every closed surface, but only a sphere exploits the symmetry: E has the same magnitude at every point on it, and points radially outward, so it crosses the surface at right angles everywhere."},
+ {type:"num",q:"Take a sphere of radius r = 0.30 m. What is its surface area? Area = 4πr².",
+  a:1.131,tol:0.03,u:"m²",hint:"4 × π × (0.30)². Remember to square the radius.",
+  line:"Sphere area = 4πr² = <b>1.13 m²</b>",
+  sol:"4π(0.30)² = 4π(0.09) = 1.13 m²."},
+ {type:"mcq",q:"Because E is the same size everywhere on the sphere and perpendicular to it, what does the integral ∮E·dA become?",
+  o:[{x:"E × 4πr² — field times total area",c:1,f:"Right. A constant comes out of the integral, and what is left is just the area."},
+     {x:"E × πr²",f:"That is the area of a flat circle. The surface of a sphere is 4πr²."},
+     {x:"E² × 4πr²",f:"The field appears once, not squared."},
+     {x:"It cannot be simplified — you must integrate",f:"That is exactly what the clever choice of surface avoids. E is constant, so it comes straight out."}],
+  hint:"If something is the same value everywhere, what does adding it up over an area give you?",
+  line:"∮E·dA = <b>E(4πr²)</b>",
+  sol:"A constant can be pulled out of the integral, leaving ∮dA, which is just the total area. The frightening integral collapses to a multiplication."},
+ {type:"num",q:"So E(4πr²) = Q/ε₀. With Q = 2.0 nC, r = 0.30 m and ε₀ = 8.85 × 10⁻¹², what is E?",
+  a:200,tol:0.03,u:"N/C",hint:"Rearrange first: E = Q / (ε₀ × area). You already have the area from step 3.",
+  line:"E = Q/(ε₀ × 4πr²) = <b>200 N/C</b>",
+  sol:"E = (2.0 × 10⁻⁹) / (8.85 × 10⁻¹² × 1.13) = 200 N/C."},
+ {type:"num",q:"Check it the old way. What does E = kQ/r² give for the same charge and distance?",
+  a:200,tol:0.03,u:"N/C",hint:"k = 9.0 × 10⁹, Q = 2.0 × 10⁻⁹ C, r² = 0.09 m².",
+  line:"kQ/r² gives the <b>same 200 N/C</b> — the two agree",
+  sol:"(9.0 × 10⁹)(2.0 × 10⁻⁹)/0.09 = 200 N/C. Identical, because Gauss's law is where kQ/r² came from in the first place — k is just shorthand for 1/(4πε₀), which works out to 9.0 × 10⁹."},
+ {type:"written",q:"Last step, and the one worth the most marks. Write out the full derivation as you would in the exam — from Gauss's law to E = kQ/r² — and sketch the Gaussian surface.",
+  hint:"Five lines: state the law, choose and draw the sphere, say why it helps, collapse the integral, rearrange.",
+  line:"Full derivation written out",
+  model:"<p><strong>Statement.</strong> Gauss's law: the net electric flux through any closed surface equals the charge enclosed divided by ε₀.</p><p>Φ = ∮E·dA = Q<sub>enc</sub>/ε₀</p><p><strong>Choice of surface.</strong> For a point charge Q, take the Gaussian surface to be a sphere of radius r centred on the charge. [Draw it: the charge at the centre, a dashed sphere around it, radial arrows crossing the surface, r marked.]</p><p><strong>Why it helps.</strong> By symmetry, E has the same magnitude at every point on the sphere, and it points radially outward — so it is perpendicular to the surface everywhere.</p><p><strong>Collapse the integral.</strong> A constant magnitude, perpendicular everywhere, means ∮E·dA = E ∮dA = E(4πr²).</p><p><strong>Equate and rearrange.</strong> E(4πr²) = Q/ε₀, so</p><p>E = Q/(4πε₀r²) = kQ/r², &nbsp;where k = 1/(4πε₀) = 9.0 × 10⁹.</p>",
+  check:["Stated Gauss's law as flux through a closed surface = Q enclosed / ε₀",
+         "Said the Gaussian surface is a sphere centred on the charge, and drew it",
+         "Gave the symmetry reason: E the same size everywhere on it, and perpendicular to it",
+         "Showed ∮E·dA becoming E(4πr²)",
+         "Rearranged to E = Q/(4πε₀r²) and identified k = 1/(4πε₀)"],
+  sol:""}],
+ final:"<p><b>(a)</b> Gauss's law: the net electric flux through any closed surface equals the charge enclosed divided by ε₀. Φ = ∮E·dA = Q<sub>enc</sub>/ε₀.</p><p><b>(b)</b> Take a sphere of radius r centred on the point charge Q — and draw it, with the charge at the centre, the dashed sphere, radial arrows and r marked.</p><p>By symmetry E has the same magnitude everywhere on the sphere and is perpendicular to it, so</p><p>∮E·dA = E(4πr²) = Q/ε₀</p><p><b>E = Q/(4πε₀r²) = kQ/r²</b>, with k = 1/(4πε₀) = 9.0 × 10⁹.</p><p>This appears almost word for word most years. The diagram alone carries marks, so draw it before you write a single equation.</p>"}
+];
+
+var FIG_SHARE='<svg viewBox="0 0 440 150" role="img" aria-label="A two microfarad capacitor charged to four hundred volts about to be connected to an uncharged six microfarad capacitor."><rect x="30" y="34" width="110" height="60" rx="8" class="sp"/><text x="85" y="58" font-size="13" text-anchor="middle" class="tp">2 &micro;F</text><text x="85" y="78" font-size="12" text-anchor="middle" class="tp">charged</text><text x="85" y="114" font-size="13" font-weight="500" text-anchor="middle" class="tt">400 V</text><rect x="290" y="34" width="110" height="60" rx="8" class="su"/><text x="345" y="58" font-size="13" text-anchor="middle" class="tu">6 &micro;F</text><text x="345" y="78" font-size="12" text-anchor="middle" class="tu">uncharged</text><text x="345" y="114" font-size="13" font-weight="500" text-anchor="middle" class="tt">0 V</text><path d="M150 50L280 50M150 78L280 78" class="ln" stroke-width="1.5" stroke-dasharray="6 5"/><text x="215" y="40" font-size="12" text-anchor="middle" class="t2">battery already</text><text x="215" y="106" font-size="12" text-anchor="middle" class="t2">removed</text></svg>';
+
+var FIG_SLAB='<svg viewBox="0 0 440 180" role="img" aria-label="Two plates of area 0.05 square metres, 1.5 centimetres apart, with a dielectric slab of constant four filling the gap over the right-hand third of the area."><rect x="50" y="40" width="300" height="9" class="sp"/><rect x="50" y="124" width="300" height="9" class="sn"/><rect x="250" y="49" width="100" height="75" class="su"/><text x="300" y="80" font-size="11" text-anchor="middle" class="tu">K = 4</text><text x="300" y="98" font-size="11" text-anchor="middle" class="tu">slab</text><text x="150" y="90" font-size="12" text-anchor="middle" class="t2">air</text><path d="M370 49L370 124" class="ln" stroke-width="1"/><path d="M364 49L376 49M364 124L376 124" class="ln" stroke-width="1"/><text x="384" y="90" font-size="11" class="tt">1.5 cm</text><path d="M50 150L250 150" class="ln" stroke-width="1"/><path d="M50 144L50 156M250 144L250 156" class="ln" stroke-width="1"/><text x="150" y="170" font-size="11" text-anchor="middle" class="t2">two thirds</text><path d="M250 150L350 150" class="ln" stroke-width="1"/><path d="M350 144L350 156" class="ln" stroke-width="1"/><text x="300" y="170" font-size="11" text-anchor="middle" class="t2">one third</text><text x="200" y="26" font-size="11" text-anchor="middle" class="t2">total plate area 0.05 m&sup2;</text></svg>';
+
+var FIG_NET='<svg viewBox="0 0 440 200" role="img" aria-label="A battery in series with C1 and with the parallel pair C2 and C3."><path d="M60 100L60 40L160 40" class="ln" stroke-width="1.5" fill="none"/><g class="ln" stroke-width="2.5"><path d="M160 24L160 56"/><path d="M174 24L174 56"/></g><path d="M174 40L274 40L274 70" class="ln" stroke-width="1.5" fill="none"/><text x="167" y="16" font-size="12" text-anchor="middle" class="tt">C&#8322;</text><path d="M160 40L160 90L160 90" class="ln" stroke-width="0" fill="none"/><path d="M160 40L136 40L136 90L160 90" class="ln" stroke-width="1.5" fill="none"/><g class="ln" stroke-width="2.5"><path d="M160 74L160 106"/><path d="M174 74L174 106"/></g><path d="M174 90L274 90L274 40" class="ln" stroke-width="1.5" fill="none"/><text x="167" y="126" font-size="12" text-anchor="middle" class="tt">C&#8323;</text><path d="M274 55L274 150L330 150" class="ln" stroke-width="1.5" fill="none"/><g class="ln" stroke-width="2.5"><path d="M330 134L330 166"/><path d="M344 134L344 166"/></g><text x="337" y="184" font-size="12" text-anchor="middle" class="tt">C&#8321;</text><path d="M344 150L390 150L390 40L274 40" class="ln" stroke-width="1.5" fill="none"/><path d="M60 100L60 150L140 150" class="ln" stroke-width="1.5" fill="none"/><g class="ln" stroke-width="1.5"><path d="M140 136L140 164"/><path d="M152 128L152 172"/></g><path d="M152 150L330 150" class="ln" stroke-width="1.5"/><text x="146" y="120" font-size="12" text-anchor="middle" class="tt">V</text><text x="60" y="186" font-size="11" class="t2">all capacitors 3.0 &micro;F</text></svg>';
+
+var FIG_DIEL='<svg viewBox="0 0 440 150" role="img" aria-label="An air capacitor charged to three hundred volts about to be connected to an identical uncharged capacitor filled with a dielectric."><rect x="30" y="34" width="110" height="60" rx="8" class="sp"/><text x="85" y="58" font-size="12" text-anchor="middle" class="tp">air gap</text><text x="85" y="78" font-size="12" text-anchor="middle" class="tp">C&#8320;</text><text x="85" y="114" font-size="13" font-weight="500" text-anchor="middle" class="tt">300 V</text><rect x="290" y="34" width="110" height="60" rx="8" class="su"/><text x="345" y="58" font-size="12" text-anchor="middle" class="tu">dielectric K</text><text x="345" y="78" font-size="12" text-anchor="middle" class="tu">same size</text><text x="345" y="114" font-size="13" font-weight="500" text-anchor="middle" class="tt">uncharged</text><path d="M150 50L280 50M150 78L280 78" class="ln" stroke-width="1.5" stroke-dasharray="6 5"/><text x="215" y="40" font-size="12" text-anchor="middle" class="t2">battery</text><text x="215" y="106" font-size="12" text-anchor="middle" class="t2">disconnected</text></svg>';
+
+var GP4=[
+{id:"Guided problem 8",src:"Nov 2012, A3(a) · 11 marks",
+ title:"Sharing charge, and the energy that vanishes",
+ prompt:"A 2 µF capacitor is charged to 400 V. The charging battery is then removed and the capacitor is connected to an uncharged 6 µF capacitor. Find (i) the final p.d. across the combination, and (ii) the total energy stored before and after — and explain why they differ.",
+ fig:FIG_SHARE,
+ steps:[
+ {type:"num",q:"Start with what the 2 µF capacitor is holding. Using Q = CV, what charge is on it?",
+  a:8.0e-4,tol:0.02,u:"C",hint:"C = 2 × 10⁻⁶ F and V = 400 V. Enter it as 8e-4.",
+  line:"Q = <b>8.0 × 10⁻⁴ C</b>, that is 800 µC",
+  sol:"Q = CV = (2 × 10⁻⁶)(400) = 8.0 × 10⁻⁴ C = 800 µC."},
+ {type:"mcq",q:"The battery is removed before the two are connected. What does that tell you?",
+  o:[{x:"The total charge cannot change — there is nowhere for it to go",c:1,f:"Right. That one sentence is what the whole question rests on."},
+     {x:"The voltage cannot change",f:"The opposite. With no battery to hold it, the voltage is the thing free to change."},
+     {x:"Both the charge and the energy are conserved",f:"Charge is. Energy is not — and part (ii) is about exactly that."},
+     {x:"Nothing happens when they are connected",f:"Charge rushes from the full capacitor to the empty one until the voltages match."}],
+  hint:"With the battery gone, where could charge possibly escape to?",
+  line:"Battery removed → <b>total charge is conserved</b> at 800 µC",
+  sol:"Removing the battery strands the charge. It can move between the two capacitors but it cannot leave, so the total is fixed at 800 µC."},
+ {type:"mcq",q:"Once joined, how are the two capacitors connected, and what do they share?",
+  o:[{x:"In parallel — both settle at the same final p.d.",c:1,f:"Right, and that common voltage is what part (i) asks for."},
+     {x:"In series — they share the same charge",f:"Joining them plate to plate puts both across the same two points, which is parallel."},
+     {x:"In series — their voltages add",f:"They are joined side by side, not end to end."},
+     {x:"They stay independent and keep their own voltages",f:"Connecting them forces the voltages to equalise — that is what makes charge flow."}],
+  hint:"They are joined plate to plate, across the same two points.",
+  line:"They are in <b>parallel</b> — one common final voltage",
+  sol:"Connected plate to plate, both capacitors sit across the same two points, so they must end at the same p.d. That is the definition of parallel."},
+ {type:"num",q:"What is the combined capacitance of the pair?",
+  a:8.0e-6,tol:0.02,u:"F",hint:"In parallel capacitances just add: 2 µF + 6 µF.",
+  line:"C<sub>total</sub> = <b>8.0 × 10⁻⁶ F</b> (8 µF)",
+  sol:"In parallel, C = C₁ + C₂ = 2 + 6 = 8 µF = 8.0 × 10⁻⁶ F."},
+ {type:"num",q:"Part (i). Using V = Q/C with the conserved charge and the combined capacitance, what is the final p.d.?",
+  a:100,tol:0.02,u:"V",hint:"Your step 1 charge divided by your step 4 capacitance.",
+  line:"Final p.d. = <b>100 V</b>",
+  sol:"V = Q/C = (8.0 × 10⁻⁴)/(8.0 × 10⁻⁶) = 100 V. The voltage dropped to a quarter, because the capacitance became four times bigger."},
+ {type:"num",q:"Part (ii). How much energy was stored before, when the 2 µF was alone at 400 V?",
+  a:0.16,tol:0.02,u:"J",hint:"U = ½CV² with C = 2 × 10⁻⁶ and V = 400. Do not drop the ½.",
+  line:"Energy before = <b>0.16 J</b>",
+  sol:"U = ½CV² = ½(2 × 10⁻⁶)(400)² = ½(2 × 10⁻⁶)(160 000) = 0.16 J."},
+ {type:"num",q:"And how much is stored afterwards, with 8 µF at 100 V?",
+  a:0.04,tol:0.02,u:"J",hint:"Same formula, new C and new V. Use the combined 8 µF and the 100 V you found.",
+  line:"Energy after = <b>0.04 J</b> — only a quarter of what there was",
+  sol:"U = ½CV² = ½(8 × 10⁻⁶)(100)² = 0.04 J. Check it the other way: Q²/2C = (8 × 10⁻⁴)²/(2 × 8 × 10⁻⁶) = 0.04 J. Same."},
+ {type:"mcq",q:"So 0.12 J has disappeared. Where did it go? This is the explain mark.",
+  o:[{x:"It was dissipated as heat in the resistance of the connecting wires as the charge rushed across",c:1,f:"Right — and a little is radiated away too. Charge is conserved; energy is not."},
+     {x:"It is still stored, just spread between the two capacitors",f:"No — add up what each capacitor stores afterwards and you still only get 0.04 J."},
+     {x:"Energy was destroyed, which is allowed for capacitors",f:"Energy is never destroyed. It left the field and became heat."},
+     {x:"The calculation must be wrong, since energy is always conserved",f:"The calculation is right. Energy is conserved overall — but it has left the capacitors."}],
+  hint:"Charge had to physically move through the wires to get from one capacitor to the other. What do wires do to a current?",
+  line:"The missing <b>0.12 J</b> became heat in the connecting wires",
+  sol:"While the charge redistributes, a transient current flows through the resistance of the wires and heats them, with a small amount radiated as electromagnetic waves. Energy is conserved overall — it just is not stored in the capacitors any more. This loss happens however good your wires are."}],
+ final:"<p><b>(i)</b> Q = CV = (2 × 10⁻⁶)(400) = 8.0 × 10⁻⁴ C.</p><p>With the battery removed the charge is conserved, and the two capacitors end up in parallel, so C = 2 + 6 = 8 µF.</p><p>V = Q/C = (8.0 × 10⁻⁴)/(8.0 × 10⁻⁶) = <b>100 V.</b></p><p><b>(ii)</b> Before: U = ½CV² = ½(2 × 10⁻⁶)(400)² = <b>0.16 J.</b><br>After: U = ½CV² = ½(8 × 10⁻⁶)(100)² = <b>0.04 J.</b></p><p><b>Explanation.</b> Charge is conserved but energy is not. As the charge redistributes, a transient current flows through the resistance of the connecting wires and 0.12 J is dissipated as heat, with a little radiated away.</p><p>Worth knowing: the fraction of energy that survives is always C₁/(C₁+C₂). Here that is 2/8 = ¼, which is exactly what you got.</p>"},
+
+{id:"Guided problem 9",src:"Nov 2013, A3(b) · 8 marks",
+ title:"A capacitor part-filled with dielectric",
+ prompt:"Two capacitor plates, each of area 0.05 m², are 1.5 cm apart. A slab of dielectric constant 4 and thickness 1.5 cm is placed a third of the way into the air gap. Treat the composite as two capacitors. (i) Are they in series or parallel? (ii) Find the new capacitance.",
+ fig:FIG_SLAB,
+ steps:[
+ {type:"mcq",q:"The slab is 1.5 cm thick and the gap is 1.5 cm wide. What does that tell you about how the capacitor is split?",
+  o:[{x:"The slab fills the gap top to bottom, so it splits the capacitor side by side — by area",c:1,f:"Right. Always check the thickness against the gap before deciding."},
+     {x:"The slab fills part of the thickness, so it splits the capacitor top from bottom",f:"It cannot — the slab is exactly as thick as the whole gap, so it touches both plates."},
+     {x:"The slab fills everything, so there is no air left",f:"It only reaches a third of the way across, so two thirds of the area is still air."},
+     {x:"The thickness does not matter here",f:"It is the deciding fact. It is what tells you this is an area split, not a thickness split."}],
+  hint:"Compare the slab thickness with the plate separation. Are they the same number?",
+  line:"Slab thickness = full gap, so the split is <b>by area</b>, side by side",
+  sol:"The slab is 1.5 cm thick and the gap is 1.5 cm, so it reaches from one plate to the other. It therefore divides the capacitor into two pieces sitting side by side, each with its own share of the plate area."},
+ {type:"mcq",q:"Part (i). So are the two capacitors in series or in parallel?",
+  o:[{x:"Parallel — both pieces sit between the same two plates, so both have the same p.d.",c:1,f:"Right, and the reason matters as much as the answer."},
+     {x:"Series — they are joined end to end",f:"They sit side by side, not end to end. There is no middle connection between them."},
+     {x:"Series — they carry the same charge",f:"Different areas means different charges. What they share is the voltage."},
+     {x:"Neither — a part-filled capacitor is a single capacitor",f:"The question tells you to treat it as two, and treating it as two is what makes it solvable."}],
+  hint:"What do the two pieces have in common — their voltage, or their charge?",
+  line:"<b>Parallel</b> — same two plates means the same p.d. across each piece",
+  sol:"Both pieces are bounded by the same top plate and the same bottom plate, so the potential difference across each is identical. Same voltage means parallel, so their capacitances simply add."},
+ {type:"num",q:"Convert the plate separation to metres.",
+  a:0.015,tol:0.02,u:"m",hint:"1.5 cm. Divide by 100.",
+  line:"d = <b>0.015 m</b>",
+  sol:"1.5 cm ÷ 100 = 0.015 m. The printed paper says “1.5 cm² apart”, which is a typo — a separation is a length, not an area."},
+ {type:"num",q:"The air piece covers two thirds of the 0.05 m². Using C = ε₀A/d, what is its capacitance?",
+  a:1.967e-11,tol:0.03,u:"F",hint:"Its area is ⅔ × 0.05 = 0.0333 m². Then ε₀ = 8.85 × 10⁻¹² times that, divided by 0.015.",
+  line:"C<sub>air</sub> = <b>1.97 × 10⁻¹¹ F</b> (19.7 pF)",
+  sol:"C = ε₀A/d = (8.85 × 10⁻¹²)(0.0333)/(0.015) = 1.97 × 10⁻¹¹ F."},
+ {type:"num",q:"The dielectric piece covers the other third, and has K = 4. Using C = Kε₀A/d, what is its capacitance?",
+  a:3.933e-11,tol:0.03,u:"F",hint:"Area is ⅓ × 0.05 = 0.0167 m² — half the air piece's area, but multiplied by 4.",
+  line:"C<sub>dielectric</sub> = <b>3.93 × 10⁻¹¹ F</b> (39.3 pF)",
+  sol:"C = Kε₀A/d = 4(8.85 × 10⁻¹²)(0.0167)/(0.015) = 3.93 × 10⁻¹¹ F. Half the area of the air piece, but four times the constant, so twice the capacitance."},
+ {type:"num",q:"Part (ii). They are in parallel, so what is the total capacitance?",
+  a:5.9e-11,tol:0.03,u:"F",hint:"In parallel, just add the two. Enter it as 5.9e-11.",
+  line:"C<sub>total</sub> = <b>5.9 × 10⁻¹¹ F</b> (59 pF)",
+  sol:"C = 1.97 × 10⁻¹¹ + 3.93 × 10⁻¹¹ = 5.9 × 10⁻¹¹ F = 59 pF."},
+ {type:"mcq",q:"One last check. With no slab at all the capacitor would be 29.5 pF. Yours came out at 59 pF. Is that sensible?",
+  o:[{x:"Yes — exactly double, and adding a dielectric can only ever increase the capacitance",c:1,f:"Right. A dielectric always helps, never hurts."},
+     {x:"No — adding a slab should reduce the capacitance",f:"A dielectric always increases capacitance. That is the whole point of putting one in."},
+     {x:"No — it should have become four times bigger, since K = 4",f:"It would, if the slab filled the whole area. It only covers a third, so the gain is smaller."},
+     {x:"It cannot be checked without knowing the charge",f:"Capacitance does not depend on charge at all — only on the geometry and the materials."}],
+  hint:"Should putting a dielectric in make a capacitor better or worse at storing charge?",
+  line:"<b>59 pF is exactly twice</b> the empty 29.5 pF — sensible, since a dielectric always helps",
+  sol:"C = C₀[⅔ + 4(⅓)] = C₀[⅔ + ⁴⁄₃] = 2C₀. Between 1× (no slab) and 4× (slab filling everything), exactly where it should be."}],
+ final:"<p><b>(i)</b> <b>Parallel.</b> The slab is as thick as the gap, so it splits the capacitor side by side by area. Both pieces lie between the same two plates and therefore have the same p.d. across them.</p><p><b>(ii)</b> d = 1.5 cm = 0.015 m, A = 0.05 m².</p><p>Air piece (⅔ of the area): C = ε₀(⅔A)/d = 1.97 × 10⁻¹¹ F.<br>Dielectric piece (⅓ of the area): C = 4ε₀(⅓A)/d = 3.93 × 10⁻¹¹ F.</p><p>In parallel: <b>C = 5.9 × 10⁻¹¹ F = 59 pF.</b></p><p>Two notes on the printed paper. It says the plates are “1.5 cm² apart” — that is a typo for 1.5 cm, since a separation is a length. And if a question ever gives a slab <i>thinner</i> than the gap, the split is top-from-bottom instead and the two pieces are in series. Check the thickness first, every time.</p>"},
+
+{id:"Guided problem 10",src:"Nov 2024, B2(a)(b) · 10 marks",
+ title:"A mixed network",
+ prompt:"For the circuit shown, with C₁ = C₂ = C₃ = 3.0 µF: (a) find the capacitance of a single capacitor that would have the same effect, and (b) with a 4.0 V battery, find the charge on each capacitor and the voltage across each.",
+ fig:FIG_NET,
+ steps:[
+ {type:"mcq",q:"Look at the circuit. Which capacitors are in parallel with each other?",
+  o:[{x:"C₂ and C₃ — both ends of each are joined to the same two points",c:1,f:"Right. C₁ then sits in series with that pair."},
+     {x:"C₁ and C₂",f:"C₁ is on its own branch, in line with the battery. It is in series with the pair, not parallel to one of them."},
+     {x:"All three",f:"If all three were parallel the answer would be 9 µF, and the circuit would have no series part at all."},
+     {x:"None — they are all in series",f:"C₂ and C₃ are drawn one above the other between the same two nodes, which is parallel."}],
+  hint:"Trace the wires. Which two capacitors have both of their ends connected to the same pair of points?",
+  line:"<b>C₂ and C₃ are in parallel</b>; C₁ is in series with that pair",
+  sol:"C₂ and C₃ are drawn one above the other, with their left ends joined and their right ends joined. Same two nodes means parallel. C₁ sits in line with the whole thing."},
+ {type:"num",q:"Combine C₂ and C₃ first. What is the capacitance of that pair?",
+  a:6.0e-6,tol:0.02,u:"F",hint:"In parallel, capacitances add: 3.0 + 3.0.",
+  line:"C₂ ∥ C₃ = <b>6.0 µF</b>",
+  sol:"In parallel, C = 3.0 + 3.0 = 6.0 µF."},
+ {type:"num",q:"Part (a). Now put that 6.0 µF in series with C₁ = 3.0 µF. What is the equivalent capacitance?",
+  a:2.0e-6,tol:0.02,u:"F",hint:"In series, 1/C = 1/3 + 1/6. Work out 1/C first, then flip it — do not forget the flip.",
+  line:"C<sub>eq</sub> = <b>2.0 µF</b>",
+  sol:"1/C = 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2, so C = 2.0 µF. Notice it is smaller than either one — a series combination always is."},
+ {type:"num",q:"Part (b). With 4.0 V across the whole thing, what total charge does the battery push round?",
+  a:8.0e-6,tol:0.02,u:"C",hint:"Q = CV, using the 2.0 µF equivalent and 4.0 V.",
+  line:"Q<sub>total</sub> = <b>8.0 µC</b>",
+  sol:"Q = CV = (2.0 × 10⁻⁶)(4.0) = 8.0 × 10⁻⁶ C = 8.0 µC."},
+ {type:"mcq",q:"C₁ is in series with the rest. What charge sits on C₁?",
+  o:[{x:"The full 8.0 µC — everything that flows must pass through it",c:1,f:"Right. Series components all carry the same charge."},
+     {x:"Half of it, 4.0 µC",f:"That is what each of C₂ and C₃ ends up with, after the charge splits between them."},
+     {x:"A third of it",f:"The charge does not divide three ways — C₁ is not in parallel with anything."},
+     {x:"You cannot tell without the voltage across C₁ first",f:"You can. Being in series fixes its charge before you know any of its voltage."}],
+  hint:"Charge has only one route through the series branch. What must it all pass through?",
+  line:"C₁ carries the <b>full 8.0 µC</b>",
+  sol:"Everything in series carries the same charge, because the charge has nowhere else to go. C₁ therefore holds the whole 8.0 µC, which then splits between C₂ and C₃."},
+ {type:"num",q:"What is the voltage across C₁?",
+  a:2.667,tol:0.03,u:"V",hint:"V = Q/C with Q = 8.0 µC and C = 3.0 µF.",
+  line:"V₁ = <b>2.67 V</b>",
+  sol:"V₁ = Q/C = (8.0 × 10⁻⁶)/(3.0 × 10⁻⁶) = 2.67 V."},
+ {type:"num",q:"The two voltages must add up to the battery's 4.0 V. What is left for the parallel pair?",
+  a:1.333,tol:0.03,u:"V",hint:"4.0 minus your answer to step 6.",
+  line:"V across C₂ and C₃ = <b>1.33 V</b>",
+  sol:"4.0 − 2.67 = 1.33 V. Both C₂ and C₃ have this same voltage, because they are in parallel."},
+ {type:"num",q:"Finally, what charge is on C₂? (C₃ is identical, so it holds the same.)",
+  a:4.0e-6,tol:0.03,u:"C",hint:"Q = CV with C = 3.0 µF and the 1.33 V you just found.",
+  line:"Q₂ = Q₃ = <b>4.0 µC</b> — and 4.0 + 4.0 = 8.0 µC, which checks out",
+  sol:"Q₂ = CV = (3.0 × 10⁻⁶)(1.33) = 4.0 × 10⁻⁶ C. Here is the free check: Q₂ + Q₃ = 8.0 µC, exactly the charge on C₁. If those two do not match, something earlier went wrong."}],
+ final:"<p><b>(a)</b> C₂ and C₃ are in parallel: 3.0 + 3.0 = 6.0 µF.<br>That is in series with C₁: 1/C = 1/3 + 1/6 = 1/2, so <b>C<sub>eq</sub> = 2.0 µF.</b></p><p><b>(b)</b> Q<sub>total</sub> = C<sub>eq</sub>V = (2.0 × 10⁻⁶)(4.0) = 8.0 µC.</p><p>C₁ is in series, so it carries all 8.0 µC: <b>Q₁ = 8.0 µC, V₁ = 2.67 V.</b></p><p>The pair gets the remaining 4.0 − 2.67 = 1.33 V, and each holds Q = (3.0 × 10⁻⁶)(1.33):<br><b>Q₂ = Q₃ = 4.0 µC, V₂ = V₃ = 1.33 V.</b></p><p>Always finish with the check: the two parallel charges add back to the series charge, and the two voltages add back to the battery voltage. Both work here.</p>"},
+
+{id:"Guided problem 11",src:"Nov 2024, B2(c) · 10 marks",
+ title:"Finding a dielectric constant by sharing charge",
+ prompt:"A parallel-plate capacitor with air between the plates is charged to 300 V and the battery is disconnected. It is then connected to an uncharged capacitor of the same dimensions but filled with a dielectric. The p.d. across the combination is 60 V. Find the dielectric constant.",
+ fig:FIG_DIEL,
+ steps:[
+ {type:"mcq",q:"The battery is disconnected before the two are joined. What does that fix?",
+  o:[{x:"The total charge — it stays at whatever the first capacitor was holding",c:1,f:"Right. Same opening move as problem 8."},
+     {x:"The total voltage, at 300 V",f:"The voltage is what changes — it falls from 300 V to 60 V. That drop is the clue the question gives you."},
+     {x:"The capacitance of the second capacitor",f:"That is what you are trying to find, and it is fixed by its materials, not by the battery."},
+     {x:"The stored energy",f:"Energy falls here, as it always does when charge is shared."}],
+  hint:"This is the same situation as problem 8. What could not escape there?",
+  line:"Battery disconnected → <b>total charge is conserved</b>",
+  sol:"With no battery attached, the charge is stranded on the two capacitors. It can redistribute but the total cannot change."},
+ {type:"mcq",q:"The second capacitor has the same dimensions as the first, but with a dielectric in the gap. If the air one is C₀, what is the other?",
+  o:[{x:"K C₀ — the same geometry, multiplied by the dielectric constant",c:1,f:"Right. Same plates, same gap, only the filling differs."},
+     {x:"C₀ — same dimensions means same capacitance",f:"Same dimensions, yes, but the dielectric multiplies the capacitance by K."},
+     {x:"C₀ / K",f:"A dielectric increases capacitance, not decreases it."},
+     {x:"You need the plate area and separation to say",f:"You do not. They cancel, because both capacitors have the same ones."}],
+  hint:"C = Kε₀A/d. If A and d are the same for both, what is the only difference?",
+  line:"Second capacitor = <b>K C₀</b>",
+  sol:"C = Kε₀A/d. Both capacitors have the same A and d, so the dielectric one is simply K times bigger. You never need the actual value of C₀ — watch it cancel."},
+ {type:"mcq",q:"Write the conservation of charge. Which equation is right?",
+  o:[{x:"C₀(300) = (C₀ + KC₀)(60)",c:1,f:"Right — the charge before, and the same charge spread over both afterwards."},
+     {x:"C₀(300) = (KC₀)(60)",f:"That forgets the first capacitor. Afterwards the charge sits on BOTH of them."},
+     {x:"C₀(300) + KC₀(60) = 0",f:"The second capacitor starts uncharged, and charges do not cancel here."},
+     {x:"(C₀ + KC₀)(300) = C₀(60)",f:"That has the before and after the wrong way round. The 300 V is before, when only C₀ was charged."}],
+  hint:"Charge before = charge after. Before, only the air capacitor is charged, at 300 V. After, both are charged, at 60 V.",
+  line:"<b>C₀(300) = (C₀ + KC₀)(60)</b>",
+  sol:"Before: Q = C₀ × 300. After: the same Q sits on the parallel pair, whose capacitance is C₀ + KC₀, at 60 V."},
+ {type:"num",q:"Divide both sides by C₀ and by 60. The left side becomes 300/60. What is that?",
+  a:5,tol:0.02,u:"",hint:"Just 300 ÷ 60. And notice C₀ has vanished from the problem entirely.",
+  line:"300/60 = <b>5</b>, so 1 + K = 5",
+  sol:"300/60 = 5, leaving 5 = 1 + K. The unknown C₀ cancelled from both sides — which is why the question never had to tell you the plate area."},
+ {type:"num",q:"So what is the dielectric constant K?",
+  a:4,tol:0.02,u:"",hint:"1 + K = 5. Subtract.",
+  line:"K = <b>4</b>",
+  sol:"K = 5 − 1 = 4."},
+ {type:"mcq",q:"A sanity check. The voltage fell to one fifth of what it was. What must have happened to the total capacitance?",
+  o:[{x:"It became five times bigger — the same charge spread over five times the capacitance",c:1,f:"Right, and C₀ + 4C₀ = 5C₀. It all hangs together."},
+     {x:"It became five times smaller",f:"Then the voltage would have risen, not fallen. V = Q/C."},
+     {x:"It stayed the same, and the charge fell instead",f:"The charge cannot fall — there is nowhere for it to go with the battery disconnected."},
+     {x:"It became four times bigger",f:"Close, but remember the original capacitor is still there too: C₀ + 4C₀ = 5C₀, not 4C₀."}],
+  hint:"V = Q/C with Q fixed. If V drops to a fifth, what did C do?",
+  line:"Total capacitance went up <b>five times</b>: C₀ + 4C₀ = 5C₀ ✓",
+  sol:"With Q fixed, V and C are inversely related. A voltage one fifth as big means a capacitance five times as big, and C₀ + KC₀ = 5C₀ gives K = 4 straight away. You could have done the whole question in one line this way."}],
+ final:"<p>With the battery disconnected, the charge is conserved.</p><p>Before: Q = C₀(300), where C₀ is the air capacitor.<br>The second capacitor has the same dimensions but a dielectric, so its capacitance is KC₀.</p><p>After, the two are in parallel at 60 V:</p><p>C₀(300) = (C₀ + KC₀)(60)</p><p>C₀ cancels: 300 = 60(1 + K), so 1 + K = 5 and <b>K = 4.</b></p><p>The quick route: the p.d. fell to one fifth, so with the charge fixed the capacitance must have gone up five times. C₀ + KC₀ = 5C₀ gives K = 4 immediately.</p><p>Notice you were never told the plate area, the separation or the charge — and never needed them. When a question seems to be missing data, check whether the unknown cancels.</p>"}
+];
+
+var GSTEPS=0;for(var gi=0;gi<GP.length;gi++)GSTEPS+=GP[gi].steps.length;
+var GSTEPS3=0;for(var gi3=0;gi3<GP3.length;gi3++)GSTEPS3+=GP3[gi3].steps.length;
+var GSTEPS4=0;for(var gi4=0;gi4<GP4.length;gi4++)GSTEPS4+=GP4[gi4].steps.length;
+
+var KEY="phys1025-v6";
+var state={view:"R",part:1,q1:{i:0,res:[],ord:{}},g:{p:0,s:0,done:{}}};
+try{var raw=localStorage.getItem(KEY);if(raw){var pz=JSON.parse(raw);if(pz&&pz.q1&&pz.q1.res&&pz.q1.res.length===Q.length)state=pz}}catch(e){}
+if(!state.q1||!state.q1.res||state.q1.res.length!==Q.length)state.q1={i:0,res:Q.map(function(){return null}),ord:{}};
+if(!state.q1.ord)state.q1.ord={};
+if(!state.g)state.g={p:0,s:0};
+if(!state.g3)state.g3={p:0,s:0};
+if(!state.g4)state.g4={p:0,s:0};
+[state.g,state.g3,state.g4].forEach(function(S){
+  if(!S.done)S.done={}; if(!S.ord)S.ord={}; if(!S.tries)S.tries={}; if(!S.wr)S.wr={};
+});
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function el(id){return document.getElementById(id)}
+function num(v){
+  var s=String(v||"").trim().replace(/,/g,"").replace(/\s*[x×]\s*10\s*\^?\s*/i,"e").replace(/\s/g,"");
+  if(!s)return null;
+  var n=Number(s);
+  return isFinite(n)?n:NaN;
+}
+function diagnose(got,want,unit){
+  if(want===0)return "The four parts cancel exactly. Add them up again, watching the signs.";
+  var ratio=got/want;
+  if(Math.abs(ratio-1e4)<2e3||Math.abs(ratio-1e4)/1e4<0.2)return "That is about ten thousand times too big — you squared the centimetres instead of converting to metres first.";
+  if(Math.abs(ratio-100)/100<0.2)return "That is about a hundred times too big — check a unit conversion.";
+  if(Math.abs(ratio-0.0001)/0.0001<0.2)return "That is about ten thousand times too small — check whether you squared the distance in metres.";
+  if(Math.abs(ratio-0.01)/0.01<0.2)return "That is about a hundred times too small — check a unit conversion.";
+  if(Math.abs(ratio-1000)/1000<0.2||Math.abs(ratio-0.001)/0.001<0.2)
+    return "Out by a factor of a thousand — that is one prefix step. Check your grams to kilograms, millimetres to metres, kV to V, or nano to micro.";
+  if(Math.abs(ratio-2)<0.1)return "Exactly twice the right answer — did you add where you should have subtracted, or use the whole distance instead of half?";
+  if(Math.abs(ratio-0.5)<0.05)return "Exactly half the right answer — did you forget to double something, or halve a distance you should have kept?";
+  if(Math.abs(ratio-Math.SQRT2)<0.05)return "Out by a factor of √2 — check whether you needed the full field or just one of its parts.";
+  if(Math.abs(ratio-1/Math.SQRT2)<0.03)return "Out by a factor of √2 — check whether you needed the full field or just one of its parts.";
+  return "";
+}
+
+function showView(v,part){
+  if(v)state.view=v; if(part)state.part=part; save();
+  var V=state.view,P=state.part;
+  el("tabR").classList.toggle("on",V==="R");
+  el("tabQ").classList.toggle("on",V==="Q");
+  for(var n=1;n<=4;n++){
+    el("p"+n).classList.toggle("on",P===n);
+    el("r"+n).classList.toggle("hide",!(V==="R"&&P===n));
+    el("q"+n).classList.toggle("hide",!(V==="Q"&&P===n));
+  }
+  if(V==="Q"&&P===1)render();
+  if(V==="Q"&&P>1)renderG(P);
+  window.scrollTo(0,0);
+}
+
+function orderFor(i){
+  var o=state.q1.ord;
+  if(!o[i]){
+    var n=Q[i].o.length,a=[],k,j,t;
+    for(k=0;k<n;k++)a.push(k);
+    for(k=n-1;k>0;k--){j=Math.floor(Math.random()*(k+1));t=a[k];a[k]=a[j];a[j]=t}
+    o[i]=a;save();
+  }
+  return o[i];
+}
+function score(){var n=0,r=state.q1.res;for(var k=0;k<r.length;k++){if(r[k]&&r[k].ok)n++}return n}
+function answered(){var n=0,r=state.q1.res;for(var k=0;k<r.length;k++){if(r[k])n++}return n}
+
+function render(){
+  var S=state.q1;
+  el("fill").style.width=(answered()/Q.length*100)+"%";
+  el("count").textContent=(S.i>=Q.length?"finished":(S.i+1)+" of "+Q.length);
+  el("chip").textContent=score()+" correct";
+  el("prev").style.display=(S.i>0)?"":"none";
+  if(S.i>=Q.length)return summary();
+  var q=Q[S.i],r=S.res[S.i],h="";
+  h+='<div class="card"><div class="meta"><span class="tag">'+q.t+'</span><span class="src">'+q.s+'</span></div>';
+  h+='<p class="q">'+q.p+'</p>';
+  if(q.type==="mcq"){
+    var ord=orderFor(S.i);
+    h+='<div class="opts">';
+    for(var j=0;j<ord.length;j++){
+      var oi=ord[j],cls="opt",mk="";
+      if(r){cls+=" lock";
+        if(q.o[oi].c){cls+=" ok";mk='<span class="mark">correct</span>'}
+        if(!q.o[oi].c&&r.pick===oi){cls+=" no";mk='<span class="mark">your answer</span>'}}
+      h+='<label class="'+cls+'"><input type="radio" name="o" value="'+oi+'"'+(r?" disabled":"")+(r&&r.pick===oi?" checked":"")+'>'+
+         '<span>'+q.o[oi].x+'</span>'+mk+'</label>';
+    }
+    h+='</div>';
+  } else if(q.type==="num"){
+    h+='<div class="numrow"><input type="text" id="num" placeholder="your answer"'+(r?' disabled value="'+esc(r.val)+'"':'')+'><span class="unit">'+q.u+'</span></div>';
+  } else {
+    h+='<textarea id="txt" placeholder="Write your answer here, then compare it with the model answer."'+(r?" disabled":"")+'>'+(r?esc(r.val):"")+'</textarea>';
+  }
+  h+='<p class="err hide" id="err"></p>';
+  h+='<div class="hint hide" id="hintbox">'+(q.hint||"")+'</div>';
+  h+='<div class="btns" style="margin-top:12px">';
+  if(!r){h+='<button class="main" id="go">'+(q.type==="written"?"Show model answer":"Check answer")+'</button>';
+    if(q.hint)h+='<button id="hb">Hint</button>';}
+  else {h+='<button class="main" id="next">'+(S.i===Q.length-1?"See results":"Next question")+'</button>';}
+  h+='</div>';
+  if(r&&q.type!=="written"){
+    h+='<div class="fb"><h4 class="'+(r.ok?"ok":"no")+'">'+(r.ok?"Correct":"Not quite")+'</h4>';
+    if(r.msg)h+='<p>'+r.msg+'</p>';
+    h+='<p>'+q.sol+'</p>';
+    if(q.img)h+=q.img;
+    h+='<div class="note">'+q.note+'</div></div>';
+  }
+  if(r&&q.type==="written"){
+    h+='<div class="model"><h4>Model answer</h4>'+q.model;
+    h+='<h4 style="margin-top:12px">Did your answer do these?</h4>';
+    for(var c=0;c<q.check.length;c++)
+      h+='<label class="check"><input type="checkbox" class="ck"'+((r.ticks&&r.ticks[c])?" checked":"")+'><span>'+q.check[c]+'</span></label>';
+    h+='<div class="selfscore" id="ss"></div><div class="note" style="margin-top:10px">'+q.note+'</div></div>';
+  }
+  h+='</div>';
+  el("stage").innerHTML=h;
+  wire();
+}
+
+function wire(){
+  var S=state.q1,q=Q[S.i];
+  var go=el("go"),hb=el("hb"),nx=el("next"),err=el("err");
+  if(hb)hb.onclick=function(){el("hintbox").classList.remove("hide");hb.style.display="none"};
+  if(nx)nx.onclick=function(){S.i++;save();render();window.scrollTo(0,0)};
+  function fail(m){err.textContent=m;err.classList.remove("hide")}
+  function clr(){err.classList.add("hide")}
+  if(q.type==="mcq"){
+    var rad=document.querySelectorAll('input[name=o]');
+    for(var i=0;i<rad.length;i++)rad[i].onchange=clr;
+    if(go)go.onclick=function(){
+      var sel=document.querySelector('input[name=o]:checked');
+      if(!sel)return fail("Choose an answer first");
+      var pk=parseInt(sel.value,10);
+      S.res[S.i]={ok:!!q.o[pk].c,pick:pk,msg:q.o[pk].f};save();render();};
+  } else if(q.type==="num"){
+    var inp=el("num");
+    if(inp){inp.oninput=clr;inp.onkeydown=function(e){if(e.key==="Enter"&&go)go.click()}}
+    if(go)go.onclick=function(){
+      var n=num(inp.value);
+      if(n===null)return fail("Enter an answer first");
+      if(isNaN(n))return fail("That is not a number — try a form like 9e-4");
+      var lim=Math.abs(q.a)*q.tol;if(lim===0)lim=1e-12;
+      var ok=Math.abs(n-q.a)<=lim;
+      S.res[S.i]={ok:ok,val:inp.value.trim(),msg:ok?"":"The correct answer is "+q.a+" "+q.u+"."};
+      save();render();};
+  } else {
+    var ta=el("txt");
+    if(ta)ta.oninput=clr;
+    if(go)go.onclick=function(){
+      if(!(ta.value||"").trim())return fail("Write your answer first — reading the model answer before you try is how you fool yourself");
+      S.res[S.i]={ok:false,val:ta.value.trim(),ticks:q.check.map(function(){return false})};save();render();};
+    var cks=document.querySelectorAll(".ck");
+    function tally(){
+      var n=0;for(var i=0;i<cks.length;i++)if(cks[i].checked)n++;
+      S.res[S.i].ticks=Array.prototype.map.call(cks,function(c){return c.checked});
+      S.res[S.i].ok=(n>=Math.ceil(cks.length/2));save();
+      el("ss").textContent="You ticked "+n+" of "+cks.length+". "+
+        (n>=cks.length?"Full marks.":n>=Math.ceil(cks.length/2)?"A pass — add the missing points and write it again.":"Read the model answer again, then rewrite yours from memory.");
+      el("chip").textContent=score()+" correct";}
+    for(var i2=0;i2<cks.length;i2++)cks[i2].onchange=tally;
+    if(cks.length)tally();
+  }
+}
+
+function summary(){
+  var by={},ord=[],r=state.q1.res;
+  for(var i=0;i<Q.length;i++){var t=Q[i].t;if(!by[t]){by[t]={n:0,ok:0};ord.push(t)}by[t].n++;if(r[i]&&r[i].ok)by[t].ok++}
+  var s=score(),pct=Math.round(s/Q.length*100);
+  var refs={"Atoms":"Reading 1","Charge":"Reading 2","Units":"Reading 3","Charging":"Reading 4",
+            "EMF":"Giancoli §19–1","Thermistor":"Giancoli §18–4","Earthing":"Giancoli §16–4, §19–7","Review":"—"};
+  var h='<div class="done"><h2>Part 1 finished</h2><p class="sub">'+Q.length+' questions</p><div class="big">'+pct+'%</div>'+
+        '<p class="sub">'+s+' of '+Q.length+' correct</p><table class="tbl"><tr><th>Topic</th><th>Score</th><th>Where to look</th></tr>';
+  for(var k=0;k<ord.length;k++)h+='<tr><td>'+ord[k]+'</td><td>'+by[ord[k]].ok+' / '+by[ord[k]].n+'</td><td>'+refs[ord[k]]+'</td></tr>';
+  h+='</table><div class="btns" style="justify-content:center"><button class="main" id="again">Start over</button><button id="toP2">Go to part 2</button></div></div>';
+  el("stage").innerHTML=h;
+  el("again").onclick=wipe1;
+  el("toP2").onclick=function(){showView("Q",2)};
+}
+function wipe1(){state.q1={i:0,res:Q.map(function(){return null}),ord:{}};save();render();window.scrollTo(0,0)}
+
+function gCfg(n){
+  if(n===4)return {D:GP4, S:state.g4, P:"j", N:GSTEPS4, part:4};
+  if(n===3)return {D:GP3, S:state.g3, P:"h", N:GSTEPS3, part:3};
+  return         {D:GP,  S:state.g,  P:"g", N:GSTEPS,  part:2};
+}
+function gOrder(S,key,n){
+  if(!S.ord)S.ord={};
+  if(!S.ord[key]){
+    var a=[],k,j,t;
+    for(k=0;k<n;k++)a.push(k);
+    for(k=n-1;k>0;k--){j=Math.floor(Math.random()*(k+1));t=a[k];a[k]=a[j];a[j]=t}
+    S.ord[key]=a;save();
+  }
+  return S.ord[key];
+}
+function gDone(S){var n=0;for(var k in S.done)if(S.done[k])n++;return n}
+function gRight(S){var n=0;for(var k in S.done)if(S.done[k]==="ok")n++;return n}
+
+function renderG(n){
+  var c=gCfg(n),S=c.S,D=c.D,P=c.P;
+  el(P+"fill").style.width=(gDone(S)/c.N*100)+"%";
+  el(P+"chip").textContent=gRight(S)+" solved";
+  if(S.p>=D.length){el(P+"count").textContent="finished";return gSummary(n)}
+  var pr=D[S.p];
+  el(P+"count").textContent="problem "+(S.p+1)+" of "+D.length;
+  var atEnd=(S.s>=pr.steps.length);
+  var h='<div class="card"><div class="meta"><span class="tag">'+pr.id+'</span><span class="src">'+pr.src+
+        (atEnd?"":" · step "+(S.s+1)+" of "+pr.steps.length)+'</span></div>';
+  h+='<p class="q">'+pr.prompt+'</p>';
+  h+='<div class="fig">'+pr.fig+'</div>';
+
+  if(S.s>0){
+    h+='<div class="work"><p class="wh">Your working so far</p>';
+    for(var i=0;i<S.s;i++)h+='<p><span class="wn">'+(i+1)+'.</span>'+pr.steps[i].line+'</p>';
+    h+='</div>';
+  }
+
+  if(atEnd){
+    h+='<div class="model"><h4>The whole solution, written out</h4>'+pr.final+'</div>';
+    h+='<div class="btns" style="margin-top:14px"><button class="main" id="'+P+'next">'+
+       (S.p===D.length-1?"See results":"Next problem")+'</button></div></div>';
+    el(P+"stage").innerHTML=h;
+    el(P+"next").onclick=function(){S.p++;S.s=0;save();renderG(n);window.scrollTo(0,0)};
+    return;
+  }
+
+  var st=pr.steps[S.s],key=S.p+"."+S.s,tries=(S.tries&&S.tries[key])||0;
+  var shown=(S.wr&&S.wr[key]);
+  h+='<p class="q" style="font-size:15px"><strong>Step '+(S.s+1)+'.</strong> '+st.q+'</p>';
+  if(st.type==="mcq"){
+    var gord=gOrder(S,key,st.o.length);
+    h+='<div class="opts">';
+    for(var j=0;j<gord.length;j++)
+      h+='<label class="opt"><input type="radio" name="'+P+'opt" value="'+gord[j]+'"><span>'+st.o[gord[j]].x+'</span></label>';
+    h+='</div>';
+  } else if(st.type==="written"){
+    h+='<textarea id="'+P+'txt" placeholder="Write it out in full here, then compare with the model answer."'+(shown?" disabled":"")+'>'+(shown?esc(shown.val):"")+'</textarea>';
+  } else {
+    h+='<div class="numrow"><input type="text" id="'+P+'num" placeholder="your answer"><span class="unit">'+st.u+'</span></div>';
+  }
+  h+='<p class="err hide" id="'+P+'err"></p>';
+  h+='<div class="hint hide" id="'+P+'hint">'+(st.hint||"")+'</div>';
+
+  if(st.type==="written"&&shown){
+    h+='<div class="model"><h4>Model answer</h4>'+st.model;
+    h+='<h4 style="margin-top:12px">Did your answer do these?</h4>';
+    for(var c2=0;c2<st.check.length;c2++)
+      h+='<label class="check"><input type="checkbox" class="'+P+'ck"'+((shown.ticks&&shown.ticks[c2])?" checked":"")+'><span>'+st.check[c2]+'</span></label>';
+    h+='<div class="selfscore" id="'+P+'ss"></div></div>';
+    h+='<div class="btns" style="margin-top:14px"><button class="main" id="'+P+'done">Finish this problem</button></div>';
+  } else {
+    h+='<div class="btns" style="margin-top:12px"><button class="main" id="'+P+'check">'+
+       (st.type==="written"?"Show model answer":"Check")+'</button>';
+    if(st.hint)h+='<button id="'+P+'hb">Hint</button>';
+    if(tries>=2)h+='<button id="'+P+'show">Show me this step</button>';
+    h+='<span style="margin-left:auto;font-size:12px;color:var(--text-3)">'+(pr.steps.length-S.s-1)+' steps to go</span></div>';
+  }
+  h+='</div>';
+  el(P+"stage").innerHTML=h;
+  wireG(n);
+}
+
+function wireG(n){
+  var c=gCfg(n),S=c.S,D=c.D,P=c.P;
+  var pr=D[S.p],st=pr.steps[S.s],key=S.p+"."+S.s;
+  if(!S.tries)S.tries={};
+  if(!S.wr)S.wr={};
+  var err=el(P+"err"),hb=el(P+"hb"),sh=el(P+"show");
+  function fail(m){err.innerHTML=m;err.classList.remove("hide")}
+  function clr(){err.classList.add("hide")}
+  if(hb)hb.onclick=function(){el(P+"hint").classList.remove("hide");hb.style.display="none"};
+  function advance(flag){S.done[key]=flag;S.s++;S.tries[key]=0;save();renderG(n);window.scrollTo(0,0)}
+  if(sh)sh.onclick=function(){advance("shown")};
+
+  if(st.type==="written"){
+    var ta=el(P+"txt"),dn=el(P+"done"),chk=el(P+"check");
+    if(ta&&!ta.disabled)ta.oninput=clr;
+    if(chk)chk.onclick=function(){
+      if(!(ta.value||"").trim())return fail("Write your answer first — reading the model answer before you try is how you fool yourself");
+      S.wr[key]={val:ta.value.trim(),ticks:st.check.map(function(){return false})};save();renderG(n);};
+    if(dn){
+      var cks=document.querySelectorAll("."+P+"ck");
+      function tally(){
+        var t=0;for(var i=0;i<cks.length;i++)if(cks[i].checked)t++;
+        S.wr[key].ticks=Array.prototype.map.call(cks,function(x){return x.checked});save();
+        el(P+"ss").textContent="You ticked "+t+" of "+cks.length+". "+
+          (t>=cks.length?"That is the full derivation.":t>=Math.ceil(cks.length/2)?"A pass — add the missing lines and write it again from memory.":"Read the model answer again, then rewrite yours with the page covered.");
+      }
+      for(var i3=0;i3<cks.length;i3++)cks[i3].onchange=tally;
+      if(cks.length)tally();
+      dn.onclick=function(){
+        var t=0;for(var i=0;i<cks.length;i++)if(cks[i].checked)t++;
+        advance(t>=Math.ceil(cks.length/2)?"ok":"shown");};
+    }
+    return;
+  }
+
+  var rad=document.querySelectorAll('input[name="'+P+'opt"]');
+  for(var i2=0;i2<rad.length;i2++)rad[i2].onchange=clr;
+  var inp=el(P+"num");
+  if(inp){inp.oninput=clr;inp.onkeydown=function(e){if(e.key==="Enter")el(P+"check").click()}}
+  el(P+"check").onclick=function(){
+    if(st.type==="mcq"){
+      var sel=document.querySelector('input[name="'+P+'opt"]:checked');
+      if(!sel)return fail("Choose an answer first");
+      var pk=parseInt(sel.value,10);
+      if(st.o[pk].c)return advance("ok");
+      S.tries[key]=(S.tries[key]||0)+1;save();
+      fail(st.o[pk].f+(S.tries[key]>=2?" — try once more, or use the button below.":" Try again."));
+      grow();
+    } else {
+      var v=num(inp.value);
+      if(v===null)return fail("Enter an answer first");
+      if(isNaN(v))return fail("That is not a number — try a form like 9e-4");
+      var lim=Math.abs(st.a)*st.tol;if(lim===0)lim=1e-9;
+      if(Math.abs(v-st.a)<=lim)return advance("ok");
+      S.tries[key]=(S.tries[key]||0)+1;save();
+      var d=diagnose(v,st.a,st.u);
+      fail((d?d+" ":"Not quite. ")+(S.tries[key]>=2?"Use the button below if you are stuck.":"Have another go."));
+      grow();
+    }
+  };
+  function grow(){
+    if(S.tries[key]>=2&&!el(P+"show")){
+      var b=document.createElement("button");b.id=P+"show";b.textContent="Show me this step";
+      b.onclick=function(){advance("shown")};
+      var cb=el(P+"check");cb.parentNode.insertBefore(b,cb.nextSibling);
+    }
+  }
+}
+
+function gSummary(n){
+  var c=gCfg(n),S=c.S,D=c.D,P=c.P;
+  var h='<div class="done"><h2>Part '+c.part+' finished</h2><p class="sub">'+D.length+' past-paper problems, '+c.N+' steps</p>'+
+        '<div class="big">'+gRight(S)+' / '+c.N+'</div><p class="sub">steps you solved without help</p>'+
+        '<table class="tbl"><tr><th>Problem</th><th>From</th></tr>';
+  for(var i=0;i<D.length;i++)h+='<tr><td>'+D[i].title+'</td><td>'+D[i].src+'</td></tr>';
+  h+='</table><p class="sub">You have now worked '+(D.length===3?"three":"four")+' real exam questions end to end.</p>'+
+     '<div class="btns" style="justify-content:center"><button class="main" id="'+P+'again">Start over</button>'+
+     (c.part<4?'<button id="'+P+'on">Go to part '+(c.part+1)+'</button>':'')+
+     '<button id="'+P+'back">Readings</button></div></div>';
+  el(P+"stage").innerHTML=h;
+  el(P+"again").onclick=function(){wipeG(n)};
+  el(P+"back").onclick=function(){showView("R",c.part)};
+  if(el(P+"on"))el(P+"on").onclick=function(){showView("Q",c.part+1)};
+}
+function wipeG(n){
+  var fresh={p:0,s:0,done:{},tries:{},ord:{},wr:{}};
+  if(n===4)state.g4=fresh; else if(n===3)state.g3=fresh; else state.g=fresh;
+  save();renderG(n);window.scrollTo(0,0);
+}
+
+el("tabR").onclick=function(){showView("R",null)};
+el("tabQ").onclick=function(){showView("Q",null)};
+for(var pn=1;pn<=4;pn++)(function(n){
+  el("p"+n).onclick=function(){showView(null,n)};
+  el("goQ"+n).onclick=function(){showView("Q",n)};
+  el("goR"+n).onclick=function(){showView("R",n)};
+})(pn);
+el("prev").onclick=function(){if(state.q1.i>0){state.q1.i--;save();render();window.scrollTo(0,0)}};
+el("reset").onclick=wipe1;
+el("greset").onclick=function(){wipeG(2)};
+el("hreset").onclick=function(){wipeG(3)};
+el("jreset").onclick=function(){wipeG(4)};
+showView(state.view,state.part);
+</script>
+</body>
+</html>
